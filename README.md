@@ -12,3 +12,10 @@ for backend
 -- use requirements.txt to mention your packages 
 -- use pip freeze > requirements.txt to update when ever needed
 
+
+for starting backend
+-- fastapi dev app.py
+
+
+for starting frontend
+--npm run dev
