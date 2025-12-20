@@ -1,10 +1,14 @@
+import { useState } from "react"
 import {useForm} from 'react-hook-form'
 
-import React from 'react'
-
 const Signup = () => {
+  const {register, handleSubmit} = useForm()
   return (
-    <div>Signup</div>
+    <form onSubmit={handleSubmit((register)=>{ console.log(JSON.stringify(register))})}>
+      <input type="text" {...register('firstname')} />
+      <input type="text" {...register('lastname')} />
+      <input type='submit' />
+    </form>
   )
 }
 
