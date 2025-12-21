@@ -1,1 +1,24 @@
-@import "tailwindcss";
+
+
+.wrapper{
+    min-height: 100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    border-radius: 2%;
+    gap: 2%;
+    padding: 2%;
+    border :0.09vw black solid;
+
+    .submit{
+    margin-top: 2%;
+}
+}
