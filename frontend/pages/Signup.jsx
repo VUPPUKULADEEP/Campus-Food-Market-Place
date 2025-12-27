@@ -10,6 +10,7 @@ const Signup = () => {
 
   return (
     <div className='wrapper'>
+       <img src='../src/assets/signup.png' alt='not found'/>
       <form className='form' onSubmit={handleSubmit((data) => { console.log(data) })}>
         <TextField id="outlined-basic" label="firstname" variant="standard" type="text" {...register('firstname', { required: 'first name is required' })} />
         {errors.firstname && <p class='error'>{errors.firstname.message}</p>}

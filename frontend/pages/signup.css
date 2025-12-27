@@ -2,6 +2,7 @@
 
 .wrapper{
     min-height: 100vh;
+    width: 100%;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +14,7 @@
 .form{
     display: flex;
     height: fit-content;
-    aspect-ratio: 10;
+    min-width: 20%;
     flex-direction: column;
     border-radius: 2%;
     gap: 2%;
@@ -26,4 +27,28 @@
     .error{
         color:red;
     }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper{
+    flex-direction: column;
+  }
+  img{
+    height: 75%;
+    width: 75%;
+  }
+  .form{
+    min-width: 65%;
+    justify-content: center;
+  }
+}
+
+@media screen and (width: 1024px) {
+  img{
+    height: 80%;
+    width: 60%;
+  }
+  .form{
+    min-width: 25%;
+  }
 }
