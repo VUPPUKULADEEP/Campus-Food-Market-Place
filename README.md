@@ -14,7 +14,7 @@ use pip freeze > requirements.txt to update when ever needed
 
 
 **for starting backend**\
->>fastapi dev app.py
+>>uvicorn app.main:app --reload
 
 
 **for starting frontend**\
