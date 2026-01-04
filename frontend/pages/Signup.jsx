@@ -42,27 +42,6 @@ const Signup = () => {
         
         </form>
     </div>
-    
-   
-
-    
-
-    {/* <div classNameName='wrapper'>
-       <img src='../src/assets/signup.png' alt='not found'/>
-      <form classNameName='form' onSubmit={handleSubmit((data) => { console.log(data) })}>
-        <TextField id="outlined-basic" label="firstname" variant="standard" type="text" {...register('firstname', { required: 'first name is required' })} />
-        {errors.firstname && <p className='error'>{errors.firstname.message}</p>}
-        <TextField id="outlined-basic" label="lastname" variant="standard" type="text" {...register('lastname',  { required: 'last name is required' })} />
-        {errors.lastname && <p className='error'>{errors.lastname.message}</p>}
-        <TextField id="outlined-basic" label="email" variant="standard" type="email" {...register('email', {required : 'email is necessary'})} />
-        {errors.email && <p className='error'>{errors.email.message}</p>}
-        <TextField id="outlined-basic" label="password" variant="standard" type="password" {...register('password')} />
-        {errors.password && <p className='error'>{errors.password.message}</p>}
-        <TextField id="outlined-basic" label="confirm password" variant="standard" type="password" {...register('cnf_password')} />
-        {errors.cnf_password && <p className='error'>{errors.cnf_password.message}</p>}
-        <Button classNameName='submit' variant="contained" type='submit'>submit</Button>
-      </form>
-    </div> */}
     </>
   )
 }
