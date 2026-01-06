@@ -1,29 +1,39 @@
-import React, { useRef, useState } from 'react'
-import './Signin.css'
-import { useNavigate } from 'react-router-dom'
-
+import { useForm } from 'react-hook-form'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from 'react-router-dom'
 
 
 const Signin = () => {
 
-  const navigate = useNavigate();
+  const { register, formState: { errors }, handleSubmit } = useForm()
+
   return (
     <>
-  
-  <div className="main">
- <div className="container">
-    <div className="inputText">email</div>
-    <input type="text" name="email" className='input' /><br />
-    <div className="inputText">password</div>
-    <input type="text" name="password" className='input' /><br />
+      <div id="container" className='d-flex justify-content-center align-items-center' style={{ height: '100vh', minWidth: '50%' }}>
+        <form id="main-container" className="d-flex flex-column justify-content-start align-items-center" style={{ width: '25%' }} onSubmit={handleSubmit((data) => { console.log(JSON.stringify(data)) })}>
+          <h3>Login</h3>
 
+          <div className="form-floating mb-3 col-12">
+            <input type="email" className="form-control" id="email" placeholder="name@example.com" {...register('email')} />
+            <label htmlFor="email">email</label>
+            {errors.email && <p className='error'>{errors.email.message}</p>}
+          </div>
+          <div className="form-floating mb-3 col-12">
+            <input type="password" className="form-control" id="password" placeholder="xxxxxxxxxx" {...register('password')} />
+            <label htmlFor="password">password</label>
+            {errors.password && <p className='error'>{errors.password.message}</p>}
+          </div>
+          <div className="w-100 text-end mb-2">
+            <Link to = "/signup"  className='text-decoration-none'>register here</Link>
+            </div>  
+          <div className="d-grid gap-2 col-12 mx-auto">
+            <button className="btn btn-primary" type="submit" >Login</button>
 
-    <button type="button" className='loginBtn'  >login</button>
+          </div>
 
-    <div className="reg" onClick={()=>{navigate('/Signup')}}>regester here</div>
-  </div>
-  </div>
-  </>
+        </form>
+      </div>
+    </>
   )
 }
 

@@ -34,7 +34,7 @@ const Signup = () => {
                     <div className="form-floating mb-3 col-12">
                         <input type="password" className="form-control" id="cnf-password" placeholder="xxxxxxxxxx" {...register('cnfpassword')} />
                         <label htmlFor="cnf-password">confirm password</label>
-                        {errors.cnfpassword && <p class='error'>{errors.cnfpassword.message}</p>}
+                        {errors.cnfpassword && <p className='error'>{errors.cnfpassword.message}</p>}
                     </div>
                     <div className="d-grid gap-2 col-12 mx-auto">
                         <button className="btn btn-primary" type="submit" >submit </button>
