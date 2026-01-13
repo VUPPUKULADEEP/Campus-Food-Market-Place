@@ -1,8 +1,12 @@
 import React from 'react'
+import ResponsiveAppBar from '../components/ResponsiveAppBar'
+
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+    <ResponsiveAppBar />
+    </>
   )
 }
 
