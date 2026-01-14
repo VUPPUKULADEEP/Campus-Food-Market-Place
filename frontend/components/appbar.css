@@ -1,0 +1,21 @@
+.bg-custom{
+    background-color: #1976d2;
+}
+
+
+.mobile{
+    display: none;
+}
+
+.desktop{
+    display: block
+    ;
+}
+@media screen and  (max-width : 900px) {
+    .desktop{
+        display: none !important;
+    }
+    .mobile{
+        display: block;
+    }
+}
