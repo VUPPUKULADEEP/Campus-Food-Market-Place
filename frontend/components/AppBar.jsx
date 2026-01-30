@@ -9,38 +9,77 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 
 const AppBar = () => {
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
   const pages = ['Products', 'Pricing', 'Blog'];
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+    };
+    
+  
+     const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  
+    
 
   return (<>
 
 <div className='main'> 
     <div className='bg-custom container-fluid d-flex flex-row justify-content-between p-3 text-white'>
       <div className='mobile'>
-        <IconButton
+        
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
 
           size="large"
           aria-label="account of current user"
           aria-controls="menu-appbar"
           aria-haspopup="true"
-          onClick={() => { console.log('clicked') }}
+          onClick={handleOpenNavMenu}
           color="inherit"
         >
-          <MenuIcon />
-        </IconButton>
-        <Menu>
-          <MenuItem>
-            <a href='' className='text-white nav-item'>home</a>
-          </MenuItem>
-          <MenuItem>
-            <a href="" className='text-white nav-item'>products</a>
-          </MenuItem>
-          <MenuItem>
-            <a href="" className='text-white nav-item'>search</a>
-          </MenuItem>
-        </Menu>
+            <MenuIcon />
+            </IconButton>
+          
+        <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', md: 'none' } }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+        </Box>
       </div>
 
       <div className='d-flex align-items-center gap-2' onClick={() => { console.log('home') }}>
@@ -58,17 +97,37 @@ const AppBar = () => {
       </div>
 
 
-      {/* <div className='desktop container-fluid d-flex flex-row justify-content-center gap-3 text-white'>
-            <a href='' className='text-white nav-item'>home</a>
-            <a href="" className='text-white nav-item'>products</a>
-            <a href="" className='text-white nav-item'>search</a>
-
-        </div> */}
+      
 
 
       <div className=' d-flex flex-row gap-4'>
         <ShoppingCartIcon sx={{ height: 30, width: 30 }} />
-        <AccountCircleIcon sx={{ height: 30, width: 30 }} />
+        <Box>
+        <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
+        <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        
       </div>
 
     </div>
