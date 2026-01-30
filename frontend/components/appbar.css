@@ -8,14 +8,19 @@
 }
 
 .desktop{
-    display: block
-    ;
+    display: block;
 }
+
+
+
 @media screen and  (max-width : 900px) {
     .desktop{
         display: none !important;
     }
     .mobile{
         display: block;
+        padding: 0;
     }
 }
+
+
