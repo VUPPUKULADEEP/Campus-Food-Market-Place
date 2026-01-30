@@ -9,10 +9,10 @@ const Home = () => {
   return (
     <>
     <AppBar/>
-    <ResponsiveAppBar />
+    {/* <ResponsiveAppBar /> */}
     
 
-    <img src="../src/assets/sample2.webp" alt="not found"  className="img-fluid object-fit-cover w-100 mh-10"/>
+    {/* <img src="../src/assets/sample2.webp" alt="not found"  className="img-fluid object-fit-cover w-100 mh-10"/> */}
     
     <Card/>
 
