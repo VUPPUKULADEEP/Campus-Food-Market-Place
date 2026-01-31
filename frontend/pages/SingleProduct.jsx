@@ -96,10 +96,7 @@ const SingleProduct = () => {
           </ul>
         </div>
         
-        <div className="col-md-6  mx-3">
-          <h4>Reviews</h4>
-          <p>no reviews yet</p>
-        </div>
+        
         
       </div>
     </>
