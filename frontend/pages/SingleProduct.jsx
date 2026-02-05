@@ -27,7 +27,7 @@ const SingleProduct = () => {
   return (
     <>
       <AppBar />
-      <div className='w-100 d-flex flex-column justify-content-center align-items-center my-4'>
+      <div className='w-100 d-flex flex-column justify-content-center align-items-center my-5'>
 
         <div id="carouselExample" className="carousel slide">
           <div className="carousel-inner">
