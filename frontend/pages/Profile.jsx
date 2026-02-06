@@ -6,7 +6,7 @@ const Profile = () => {
   return (
     <>
     <AppBar/>
-    <div className='container'>
+    <div className='profile-container'>
       <div className='details'>
         <p>hello</p>
         <h3>kuladeep v</h3>
@@ -17,7 +17,7 @@ const Profile = () => {
           <a href="#"> my cart</a>
           <a href="#"> logout</a>
       </div>
-      <div className='editable'>
+      <div className='content'>
 
       </div>
     </div>
