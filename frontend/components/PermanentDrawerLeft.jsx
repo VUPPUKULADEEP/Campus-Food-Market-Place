@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -16,9 +14,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+
+
 const drawerWidth = 200;
 
-function PermanentDrawerLeft() {
+function PermanentDrawerLeft({setPage, className}) {
+  
+
   const iconslist = [<AccountBoxIcon/>,
      <CheckBoxOutlineBlankIcon/>, 
      <ShoppingCartIcon/>,
@@ -26,22 +28,19 @@ function PermanentDrawerLeft() {
      <LogoutIcon/>
 
   ]
-  return (<>
-    
-    <Box sx={{ display: 'flex', position:'static' }}>
+  return (
+    <div>
+    <Box >
       <Drawer
         sx={{
-          
-          width: drawerWidth,
-          flexShrink: 0,
           '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            marginTop:9.9
+            width:drawerWidth,
+            top:'4.1rem'
+            
           },
         }}
         variant='permanent'
-        anchor="left"
+        
       >
         
         <Divider />
@@ -56,7 +55,7 @@ function PermanentDrawerLeft() {
         </div>
         <List>
           {['Account','orders', 'cart', 'wishlist', 'logout'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+            <ListItem key={text} disablePadding onClick={() => {setPage(text)}}>
               <ListItemButton>
                 <ListItemIcon>
                   {iconslist[index]}
@@ -68,20 +67,9 @@ function PermanentDrawerLeft() {
         </List>
         
       </Drawer>
-      {/* <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-          hi
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          ces sagittis orci a.
-        </Typography> 
-      </Box> */}
+      
     </Box>
-    </>
+    </div>
   );
 }
 

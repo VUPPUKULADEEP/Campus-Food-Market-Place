@@ -2,30 +2,42 @@ import React from 'react'
 import AppBar from '../components/AppBar'
 import './profile.css'
 import PermanentDrawerLeft from '../components/PermanentDrawerLeft'
+import Account from './Account'
+import Orders from './Orders'
+import Cart from './Cart'
+import Wishlist from './Wishlist'
+import { useState } from 'react'
 
 const Profile = () => {
+  const [page, setPage] = useState('Account')
+  
+  const renderpage = () => {
+    switch (page) {
+      case 'Account':
+        console.log(page)
+        return <Account />
+      case 'orders':
+        console.log(page)
+        return <Orders />
+      case 'cart':
+        return <Cart />
+      case 'wishlist':
+        return <Wishlist />
+      default:
+        return <Account />
+    }
+  }
   return (
     <>
-    <AppBar/>
-    {/* <div className='profile-container'>
-      <div className='details'>
-        <p>hello</p>
-        <h3>kuladeep v</h3>
+      <AppBar />
+
+      <div className='full-page'>
+        <PermanentDrawerLeft className='side-bar' setPage={setPage} />
+        <div className='dynamic'>
+          {renderpage()}
+        </div>
 
       </div>
-      <div className='menu'>
-          <a href="#"> my orders</a>
-          <a href="#"> my cart</a>
-          <a href="#"> logout</a>
-      </div>
-      <div className='content'>
-
-      </div>
-    </div> */}
-    <div>
-    <PermanentDrawerLeft/>
-
-    </div>
     </>
   )
 }
