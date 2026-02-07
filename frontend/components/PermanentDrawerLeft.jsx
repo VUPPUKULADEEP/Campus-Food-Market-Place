@@ -18,7 +18,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 200;
 
-function PermanentDrawerLeft({setPage, className}) {
+function PermanentDrawerLeft({setPage}) {
   
 
   const iconslist = [<AccountBoxIcon/>,
@@ -29,19 +29,9 @@ function PermanentDrawerLeft({setPage, className}) {
 
   ]
   return (
-    <div>
-    <Box >
-      <Drawer
-        sx={{
-          '& .MuiDrawer-paper': {
-            width:drawerWidth,
-            top:'4.1rem'
-            
-          },
-        }}
-        variant='permanent'
-        
-      >
+    <div className='sidebar'>
+    
+      
         
         <Divider />
         <div className='profile-icon'>
@@ -53,6 +43,7 @@ function PermanentDrawerLeft({setPage, className}) {
           kuladeep
          </h3>
         </div>
+        <Divider />
         <List>
           {['Account','orders', 'cart', 'wishlist', 'logout'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() => {setPage(text)}}>
@@ -66,9 +57,9 @@ function PermanentDrawerLeft({setPage, className}) {
           ))}
         </List>
         
-      </Drawer>
+     
       
-    </Box>
+    
     </div>
   );
 }

@@ -1,41 +1,27 @@
-/* .profile-icon{
-    border: 1px solid black;
+
+
+*{
+    font-size: large;
 }
-
-
-
-.span-text{
-    display: inline;
-    font-size:medium;
-}
-
-.text{
-    
-    font-size: xx-large;
-    text-decoration: solid;
-} */
-
-.profile-icon{
-    display: grid;
-    grid-template-areas:
+ .profile-icon{
+  display: grid;
+  grid-template-areas:
     "icon subtext"
     "icon text";
 }
 
 .span-text{
-    margin-top: 5%;
-    grid-area: subtext;
-    font-style: italic;
+  grid-area: subtext;
+  font-style: italic;
 }
 
 .icon{
-    margin-left: 15%;
-    grid-area: icon;
+  grid-area: icon;
 }
 
 .text{
-    margin-bottom: 5%;
-    grid-area: text;
-    text-transform: capitalize;
+  grid-area: text;
+  text-transform: capitalize;
 }
+
 

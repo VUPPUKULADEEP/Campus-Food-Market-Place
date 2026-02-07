@@ -32,7 +32,7 @@ const Profile = () => {
       <AppBar />
 
       <div className='full-page'>
-        <PermanentDrawerLeft className='side-bar' setPage={setPage} />
+        <PermanentDrawerLeft  setPage={setPage} />
         <div className='dynamic'>
           {renderpage()}
         </div>

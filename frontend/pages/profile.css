@@ -1,16 +1,22 @@
-.fullpage{
-    display: flex;
+.full-page{
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    grid-template-areas:
+    "sidebar dynamic"
+    "sidebar dynamic"
+    "sidebar dynamic"
+    "sidebar dynamic"
+    "sidebar dynamic";
+    height: 100vh;
 }
 
-/* .side-bar{
-    grid-area: 'side-bar';
-} */
-/* 
- xs:'70vw',
-              sm : '50vw',
-              md : 200 */
-@media screen and (width = 320px) {
-    .dynamic{
-        margin-left: 50vw;
-    }
+.sidebar{
+    grid-area: sidebar;
+    border-right: 1px solid black;
+
+}
+
+.dynamic{
+    margin-left: 2%;
+    grid-area: dynamic;
 }
