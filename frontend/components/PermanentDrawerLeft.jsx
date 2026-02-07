@@ -68,7 +68,7 @@ function PermanentDrawerLeft() {
         </List>
         
       </Drawer>
-      <Box
+      {/* <Box
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
@@ -78,8 +78,8 @@ function PermanentDrawerLeft() {
         </Typography>
         <Typography sx={{ marginBottom: 2 }}>
           ces sagittis orci a.
-        </Typography>
-      </Box>
+        </Typography> 
+      </Box> */}
     </Box>
     </>
   );
