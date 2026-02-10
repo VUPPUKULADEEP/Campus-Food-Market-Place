@@ -2,7 +2,7 @@ import React from 'react'
 import ResponsiveAppBar from '../components/ResponsiveAppBar'
 import AppBar from '../components/AppBar'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './home.css'
+import './welcome.css'
 import Card from './Card'
 
 const Welcome = () => {
