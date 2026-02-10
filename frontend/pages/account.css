@@ -1,0 +1,22 @@
+.personal-info > h4{
+    margin-top: 3%;
+}
+
+.personal-info>input, .personal-info>textarea{
+    margin-right: 2%;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.personal-info>h4>a{
+    text-decoration: none;
+    margin-left: 1%;
+}
+
+#delete{
+    color: red;
+}
+
+#deactivate{
+    color: blue;
+}

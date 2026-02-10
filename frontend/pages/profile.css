@@ -1,6 +1,6 @@
 .full-page{
     display: grid;
-    grid-template-columns: 11rem 1fr;
+    grid-template-columns: 13rem 1fr;
     grid-template-areas:
     "sidebar dynamic"
     "sidebar dynamic"
@@ -12,6 +12,7 @@
 
 .sidebar{
     grid-area: sidebar;
+    margin: 2%;
     border-right: 1px solid black;
 
 }
