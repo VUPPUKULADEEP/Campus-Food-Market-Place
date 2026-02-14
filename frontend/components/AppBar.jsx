@@ -15,7 +15,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 const AppBar = () => {
-const settings = ['Profile', 'Orders', 'Logout'];
+const settings = ['Profile', 'Logout'];
   const navigate = useNavigate();
   const pages = ['Home', 'Cart'];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -75,11 +75,14 @@ const settings = ['Profile', 'Orders', 'Logout'];
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+              
+                <MenuItem key='profile' onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem key='logout' onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                </MenuItem>
+              
             </Menu>
         </Box>
       </div>
@@ -109,7 +112,7 @@ const settings = ['Profile', 'Orders', 'Logout'];
 
 
       <div className=' d-flex flex-row gap-4'>
-        <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/cart')}}/>
+        <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile/cart')}}/>
         <Box>
         <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
         <Menu

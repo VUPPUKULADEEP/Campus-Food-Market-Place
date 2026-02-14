@@ -6,6 +6,7 @@ import SingleProduct from "../pages/SingleProduct"
 import Profile from "../pages/Profile"
 import Welcome from "../pages/Welcome"
 import Test from "../components/test"
+import Cart from "../pages/Cart"
 
 function App() {
   
@@ -21,6 +22,8 @@ function App() {
         <Route path="/single" element={<SingleProduct/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path='/test' element={<Test/>}></Route>
+        
+
       </Routes>
     </BrowserRouter>
     </>
