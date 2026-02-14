@@ -8,13 +8,13 @@ import Card from './Card'
 const Home = () => {
   const element = []
   for (let index = 0; index < 10; index++) {
-    element.push(<Card/>)
+    element.push(<Card key={index} className='item'/>)
     
   }
   return (
     <>
     <AppBar/>
-    <div className='container'>
+    <div className='home-container'>
     {element}
 </div>
    

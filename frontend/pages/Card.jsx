@@ -4,11 +4,12 @@ import Box from '@mui/material/Box'
 import Rating from '@mui/material/Rating'
 import StarIcon from '@mui/icons-material/Star';
 
-const Card = () => {
+const Card = ({className}) => {
   const value = 3.5
   return (
     <>
-    <div className="card">
+    
+    <div  className={`card ${className}`}>
   <img src="../src/assets/sample.jpg" className="card-img-top" alt="..."/>
   <div className="card-body">
     <h5 className="card-title">Card title</h5>
@@ -26,6 +27,7 @@ const Card = () => {
           </Box>
   </div>
 </div>
+
     </>
   )
 }
