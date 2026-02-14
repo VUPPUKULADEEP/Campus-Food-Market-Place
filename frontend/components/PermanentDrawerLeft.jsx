@@ -13,13 +13,13 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 200;
 
 function PermanentDrawerLeft({setPage}) {
-  
+  const navigate = useNavigate();
 
   const iconslist = [<AccountBoxIcon/>,
      <CheckBoxOutlineBlankIcon/>, 
@@ -46,7 +46,7 @@ function PermanentDrawerLeft({setPage}) {
         <Divider />
         <List>
           {['Account','orders', 'cart', 'wishlist', 'logout'].map((text, index) => (
-            <ListItem key={text} disablePadding onClick={() => {setPage(text)}}>
+            <ListItem key={text} disablePadding onClick={() => {navigate(`/${text}`)}}>
               <ListItemButton>
                 <ListItemIcon>
                   {iconslist[index]}
