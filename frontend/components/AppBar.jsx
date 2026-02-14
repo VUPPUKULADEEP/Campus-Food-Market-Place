@@ -76,11 +76,11 @@ const settings = ['Profile', 'Logout'];
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               
-                <MenuItem key='profile' onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>Profile</Typography>
+                <MenuItem key='Home' onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Home</Typography>
                 </MenuItem>
-                <MenuItem key='logout' onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                <MenuItem key='Cart' onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>Cart</Typography>
                 </MenuItem>
               
             </Menu>
