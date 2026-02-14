@@ -7,9 +7,15 @@ import Orders from './Orders'
 import Cart from './Cart'
 import Wishlist from './Wishlist'
 import { useState } from 'react'
+import { useLocation } from "react-router-dom";
+
 
 const Profile = () => {
-  const [page, setPage] = useState('Account')
+  const location = useLocation();
+  const [page, setPage] = useState(
+  location.state?.page || "Account"
+);
+
   
   const renderpage = () => {
     switch (page) {

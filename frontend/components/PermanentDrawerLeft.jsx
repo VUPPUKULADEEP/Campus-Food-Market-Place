@@ -46,7 +46,7 @@ function PermanentDrawerLeft({setPage}) {
         <Divider />
         <List>
           {['Account','orders', 'cart', 'wishlist', 'logout'].map((text, index) => (
-            <ListItem key={text} disablePadding onClick={() => {navigate(`/profile/${text}`)}}>
+            <ListItem key={text} disablePadding onClick={() =>{setPage(text)}}>
               <ListItemButton>
                 <ListItemIcon>
                   {iconslist[index]}

@@ -112,7 +112,7 @@ const settings = ['Profile', 'Logout'];
 
 
       <div className=' d-flex flex-row gap-4'>
-        <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile/cart')}}/>
+        <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "cart" } })}}/>
         <Box>
         <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
         <Menu
