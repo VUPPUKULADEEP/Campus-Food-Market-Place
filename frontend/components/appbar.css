@@ -15,6 +15,39 @@
     position:sticky;
 }
 
+.search{
+    padding: 0.6%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: #438ED5;
+    opacity: 0.7;
+    border-radius: 5px;
+}
+
+.input-box:hover{
+    border: none;
+}
+.input-box{
+    outline: none;
+padding: 3;
+opacity: 1;
+text-transform: capitalize;
+border: none !important;
+ background-color: #438ED5;
+ color: white
+ 
+}
+
+.input-box::placeholder {
+  color: white
+}
+
+.icon{
+    display: inline;
+}
+
 @media screen and  (max-width : 900px) {
     .desktop{
         display: none !important;

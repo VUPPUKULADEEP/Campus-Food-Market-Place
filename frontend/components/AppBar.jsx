@@ -138,6 +138,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <div className='search'>
+            <input type="text" placeholder='search...' className='input-box'/>
+            <SearchIcon className='icon'/>
+          </div>
+          
         <div className='desktop'>
         <div className="container-fluid d-flex justify-content-center">
           {pages.map((page) => (
