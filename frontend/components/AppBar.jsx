@@ -85,8 +85,8 @@ const settings = ['Profile', 'Orders', 'Logout'];
       </div>
 
       <div className='d-flex align-items-center gap-2' onClick={() => { console.log('home') }}>
-        <HomeIcon />
-        <h3 className='mb-0'>Ecommerce</h3>
+        <HomeIcon onClick={()=>{navigate('/home')}}/>
+        <h3 className='mb-0' onClick={()=>{navigate('/home')}}>Ecommerce</h3>
         
           <div className='search'>
             <input type="text" placeholder='search...' className='input-box'/>
