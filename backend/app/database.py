@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 url = 'sqlite:///./test.db'
+url = "mysql+pymysql://kuladeep:password@localhost:3306/ecommerce"
 engine = create_engine(url)
 
 base = declarative_base()
