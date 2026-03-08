@@ -1,10 +1,9 @@
 from fastapi import FastAPI, HTTPException, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
-from app.database import get_db,init_db
+from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.models import Users
-from app.schemas import UserCreate,UserResponse
+from app.schemas import UserCreate,UserResponse,Login
 
 
 router = APIRouter()
@@ -30,3 +29,18 @@ def create_user( user:UserCreate,db: Session = Depends(get_db)):
 def get_user(db: Session = Depends(get_db)):
     users = db.query(Users).all()
     return users
+
+@router.post('/login', response_model=UserResponse)
+def login(user: Login, db:Session = Depends(get_db)):
+    try:
+        u = db.query(Users).filter(Users.email == user.email, Users.password == user.password).first()
+        if not u:
+            raise HTTPException(status_code=401, detail='invalid user')
+        return u
+    except HTTPException as e:
+        raise HTTPException(status_code=401, detail='invalid user')
+    except Exception as e:
+        return{'message' : 'unknown exception'} 
+
+
+

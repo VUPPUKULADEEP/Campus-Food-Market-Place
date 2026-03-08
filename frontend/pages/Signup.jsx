@@ -2,34 +2,31 @@
 import { useForm } from 'react-hook-form'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-
+    const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit, watch } = useForm()
     const password = watch("password")
     const apiurl = import.meta.env.VITE_BACKEND_URL;
     console.log(import.meta.env.VITE_BACKEND_URL)
     const onSubmit = async (data) => {
-        const {cnfpassword, ...userData} = data
+        const { cnfpassword, ...userData } = data
         console.log(userData)
         let response;
-        try{
+        try {
             response = await axios.post(`${apiurl}/users/create`,
-            userData
-        );
-        console.log( response.data.detail)
+                userData);
+            navigate('/signin');
         }
-        catch(error){
-            
+        catch (error) {
+
             console.log(error.response.data.detail)
-            if (error.response.data.detail){
+            if (error.response.data.detail) {
                 alert(error.response.data.detail)
             }
         }
-        finally{
 
-        }
 
     }
     return (
@@ -75,7 +72,7 @@ const Signup = () => {
                         {errors.password && <p class='error'>{errors.password.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
-                        <input type="password" className="form-control" id="cnf-password" placeholder="xxxxxxxxxx" {...register('cnfpassword',{
+                        <input type="password" className="form-control" id="cnf-password" placeholder="xxxxxxxxxx" {...register('cnfpassword', {
                             validate: value => value === password || "password do not match"
                         })} />
                         <label htmlFor="cnf-password">confirm password</label>
