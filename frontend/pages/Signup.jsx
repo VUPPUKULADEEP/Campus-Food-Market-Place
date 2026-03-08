@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 
+
 const Signup = () => {
 
     const { register, formState: { errors }, handleSubmit, watch } = useForm()
@@ -14,7 +15,7 @@ const Signup = () => {
         console.log(userData)
         let response;
         try{
-            response = await axios.post(`${apiurl}/user`,
+            response = await axios.post(`${apiurl}/users/create`,
             userData
         );
         console.log( response.data.detail)
@@ -26,7 +27,9 @@ const Signup = () => {
                 alert(error.response.data.detail)
             }
         }
-        
+        finally{
+
+        }
 
     }
     return (
