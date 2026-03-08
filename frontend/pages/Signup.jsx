@@ -20,7 +20,7 @@ const Signup = () => {
             navigate('/signin');
         }
         catch (error) {
-
+            alert('login failed')
             console.log(error.response.data.detail)
             if (error.response.data.detail) {
                 alert(error.response.data.detail)
