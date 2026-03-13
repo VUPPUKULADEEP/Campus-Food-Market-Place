@@ -7,6 +7,9 @@ import Profile from "../pages/Profile"
 import Welcome from "../pages/Welcome"
 import Test from "../components/test"
 import Cart from "../pages/Cart"
+import Admin from "../pages/Admin/Admin"
+import AdminSignin from "../pages/Admin/AdminSignin"
+import AdminSignup from "../pages/Admin/AdminSignup"
 
 function App() {
   
@@ -22,7 +25,9 @@ function App() {
         <Route path="/single" element={<SingleProduct/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path='/test' element={<Test/>}></Route>
-        
+        <Route path='/admin' element={<Admin/>}></Route>
+        <Route path='/admin/signin' element={<AdminSignin/>}></Route>
+        <Route path="/admin/signup" element={<AdminSignup/>}></Route>
 
       </Routes>
     </BrowserRouter>

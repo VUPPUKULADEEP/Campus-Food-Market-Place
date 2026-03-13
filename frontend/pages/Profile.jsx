@@ -35,7 +35,7 @@ const Profile = () => {
   }
   return (
     <>
-      <AppBar />
+      <AppBar isAdmin={false}/>
 
       <div className='full-page'>
         <PermanentDrawerLeft  setPage={setPage} />

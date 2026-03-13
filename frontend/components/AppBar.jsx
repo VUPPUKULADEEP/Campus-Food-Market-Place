@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom'
 
 
-const AppBar = () => {
+const AppBar = ({isAdmin}) => {
 const settings = ['Profile', 'Logout'];
   const navigate = useNavigate();
   const pages = ['Home', 'Cart'];
@@ -91,12 +91,12 @@ const settings = ['Profile', 'Logout'];
         <HomeIcon onClick={()=>{navigate('/home')}}/>
         <h3 className='mb-0' onClick={()=>{navigate('/home')}}>Ecommerce</h3>
         
-          <div className='search'>
+          {!isAdmin && (<div className='search'>
             <input type="text" placeholder='search...' className='input-box'/>
             <SearchIcon className='icon'/>
-          </div>
+          </div>)}
           
-        <div className='desktop'>
+        {!isAdmin && (<div className='desktop'>
         <div className="container-fluid d-flex justify-content-center">
           {pages.map((page) => (
             <MenuItem key={page} >
@@ -104,7 +104,7 @@ const settings = ['Profile', 'Logout'];
             </MenuItem>
           ))}
         </div>
-        </div>
+        </div>)}
       </div>
 
 
@@ -112,9 +112,12 @@ const settings = ['Profile', 'Logout'];
 
 
       <div className=' d-flex flex-row gap-4'>
-        <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "cart" } })}}/>
+        
+         {!isAdmin &&  (<ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "cart" } })}}/>)}
         <Box>
         <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
+        
+        
         <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

@@ -13,7 +13,7 @@ const Home = () => {
   }
   return (
     <>
-    <AppBar/>
+    <AppBar isAdmin={false}/>
     <div className='home-container'>
     {element}
 </div>
