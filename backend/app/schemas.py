@@ -24,3 +24,22 @@ class UserResponse(BaseModel):
 class Login(BaseModel):
     email : EmailStr
     password : str
+
+
+
+class AdminCreate(BaseModel):
+    first_name : str
+    last_name : str
+    email :EmailStr
+    password : str
+
+
+class AdminResponse(BaseModel):
+    admin_id : int
+    first_name : str
+    last_name : str
+    email :EmailStr
+    password : str
+
+    class Config:
+        orm_mode = True

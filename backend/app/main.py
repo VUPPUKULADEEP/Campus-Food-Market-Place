@@ -5,7 +5,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from .models import Users
 from .schemas import UserCreate,UserResponse
-from app.router import users, orders
+from app.router import users, orders, admin
 
 
 app = FastAPI(title='E-commerce')
@@ -23,3 +23,4 @@ init_db()
 
 app.include_router(users.router, prefix='/users', tags=["users"])
 app.include_router(orders.router, prefix='/orders', tags=["orders"])
+app.include_router(admin.router, prefix='/admin', tags=['admin'])

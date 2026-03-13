@@ -13,6 +13,15 @@ class Users(base):
     password = Column(String(20), nullable=False)
 
 
+class Admins(base):
+    __tablename__ = 'Admins'
+
+    admin_id = Column(Integer, primary_key=True,index=True )
+    first_name = Column(String(10), nullable=False)
+    last_name = Column(String(10), nullable=True)
+    email = Column(String(30), unique = True, nullable=False)
+    password = Column(String(20), nullable=False)
+
 
 
 
