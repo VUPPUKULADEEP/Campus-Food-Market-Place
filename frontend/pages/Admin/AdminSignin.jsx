@@ -12,20 +12,20 @@ const navigate = useNavigate();
   const onSubmit = async (userData) => {
     const apiurl = import.meta.env.VITE_BACKEND_URL;
     console.log(userData)
-//     let response;
-//     try {
-//       response = await axios.post(`${apiurl}/users/login`,
-//         userData);
-//         console.log(response)
-//       // navigate('/home');
-//     }
-//     catch (error) {
-// alert('login failed');
-//       console.log(error)
-//       // if (error.response.data.detail) {
-//       //   alert(error.response.data.detail)
-//       // }
-//     }
+    let response;
+    try {
+      response = await axios.post(`${apiurl}/admin/login`,
+        userData);
+        console.log(response)
+      navigate('/admin');
+    }
+    catch (error) {
+alert('login failed');
+      console.log(error)
+      // if (error.response.data.detail) {
+      //   alert(error.response.data.detail)
+      // }
+    }
 
 
   }

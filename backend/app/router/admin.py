@@ -3,7 +3,7 @@ from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.models import Admins
-from app.schemas import AdminCreate,AdminResponse
+from app.schemas import AdminCreate,AdminResponse,Login
 
 
 router = APIRouter()
@@ -26,5 +26,15 @@ def get_admins(db: Session = Depends(get_db)):
     admins = db.query(Admins).all()
     return admins
 
-
+@router.post('/login', response_model=AdminResponse)
+def login(admin: Login, db:Session = Depends(get_db)):
+    try:
+        u = db.query(Admins).filter(Admins.email == admin.email, Admins.password == admin.password).first()
+        if not u:
+            raise HTTPException(status_code=401, detail='invalid admin')
+        return u
+    except HTTPException as e:
+        raise HTTPException(status_code=401, detail='invalid admin')
+    except Exception as e:
+        return{'message' : 'unknown exception'} 
     
