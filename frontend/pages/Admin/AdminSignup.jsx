@@ -13,19 +13,19 @@ const AdminSignup = () => {
     const onSubmit = async (data) => {
         const { cnfpassword, ...userData } = data
         console.log(userData)
-        // let response;
-        // try {
-        //     response = await axios.post(`${apiurl}/users/create`,
-        //         userData);
-        //     navigate('/signin');
-        // }
-        // catch (error) {
+        let response;
+        try {
+            response = await axios.post(`${apiurl}/admin/create`,
+                userData);
+            navigate('/admin/signin');
+        }
+        catch (error) {
             
-        //     console.log(error.response.data.detail)
-        //     if (error.response.data.detail) {
-        //         alert(error.response.data.detail)
-        //     }
-        // }
+            console.log(error.response.data.detail)
+            if (error.response.data.detail) {
+                alert(error.response.data.detail)
+            }
+        }
 
 
     }
