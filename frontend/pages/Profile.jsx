@@ -25,8 +25,6 @@ const Profile = () => {
       case 'orders':
         console.log(page)
         return <Orders />
-      case 'cart':
-        return <Cart />
       case 'wishlist':
         return <Wishlist />
       default:
