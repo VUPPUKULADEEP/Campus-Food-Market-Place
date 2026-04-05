@@ -19,8 +19,7 @@ const Signup = () => {
                 userData);
             navigate('/signin');
         }
-        catch (error) {
-            alert('login failed')
+        catch (error) {  
             console.log(error.response.data.detail)
             if (error.response.data.detail) {
                 alert(error.response.data.detail)
