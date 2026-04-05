@@ -8,7 +8,7 @@ from .schemas import UserCreate,UserResponse
 from app.router import users, orders, admin
 
 
-app = FastAPI(title='E-commerce')
+app = FastAPI(title='Order Food')
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],

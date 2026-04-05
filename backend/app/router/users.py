@@ -44,3 +44,14 @@ def login(user: Login, db:Session = Depends(get_db)):
 
 
 
+@router.delete('/delete/user')
+def delete_user(user_id : int, db:Session = Depends(get_db)):
+    
+    user = db.query(Users).filter(Users.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail='user not found')
+    db.delete(user)
+    db.commit()
+    return {'message' : 'deleted the user'}
+
+    

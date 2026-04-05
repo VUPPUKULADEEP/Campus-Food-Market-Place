@@ -37,4 +37,14 @@ def login(admin: Login, db:Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail='invalid admin')
     except Exception as e:
         return{'message' : 'unknown exception'} 
+
+
+@router.delete('/delete/admin')
+def delete_user(admin_id : int, db:Session = Depends(get_db)):
     
+    admin = db.query(Admins).filter(Admins.admin_id == admin_id).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail='user not found')
+    db.delete(admin)
+    db.commit()
+    return {'message' : 'deleted the admin'}
