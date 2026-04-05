@@ -6,8 +6,7 @@ import './singleproduct.css'
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import Tabs from '@mui/material/Tabs';
-import { Tab } from 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 
 const SingleProduct = () => {
@@ -55,7 +54,7 @@ const SingleProduct = () => {
 
 
           <h3 className="text-success">₹299</h3>
-          <p className="text-decoration-line-through text-muted">₹3,999</p>
+          <p className="text-decoration-line-through text-muted">₹399</p>
 
           <p className="mt-3">
             Experience premium sound quality with long battery life and
