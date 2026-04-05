@@ -12,7 +12,7 @@ router = APIRouter()
 @router.post('/create', response_model=AdminResponse)
 def create_admin( user:AdminCreate,db: Session = Depends(get_db)):
     try:
-        admin = Admins(**user.dict())
+        admin = Admins(**user.model_dump())
         db.add(admin)
         db.commit()
         db.refresh(admin)

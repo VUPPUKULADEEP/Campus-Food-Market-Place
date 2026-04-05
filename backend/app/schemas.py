@@ -17,8 +17,9 @@ class UserResponse(BaseModel):
     email :EmailStr
     password : str
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        'from_attributes': True
+    }
 
 
 class Login(BaseModel):
@@ -41,5 +42,6 @@ class AdminResponse(BaseModel):
     email :EmailStr
     password : str
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        'from_attributes': True
+    }
