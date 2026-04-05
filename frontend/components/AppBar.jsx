@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import HomeIcon from '@mui/icons-material/Home';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './appbar.css'
@@ -88,8 +88,8 @@ const settings = ['Profile', 'Logout'];
       </div>
 
       <div className='d-flex align-items-center gap-2' onClick={() => { console.log('home') }}>
-        <HomeIcon onClick={()=>{navigate('/home')}}/>
-        <h3 className='mb-0' onClick={()=>{navigate('/home')}}>Ecommerce</h3>
+        <FastfoodIcon onClick={()=>{navigate('/home')}}/>
+        <h5 className='mb-0 text-nowrap' onClick={()=>{navigate('/home')}}>Order Food</h5>
         
           {!isAdmin && (<div className='search'>
             <input type="text" placeholder='search...' className='input-box'/>
