@@ -17,7 +17,7 @@ import {useNavigate} from 'react-router-dom'
 const AppBar = ({isAdmin}) => {
 const settings = ['Profile', 'Logout'];
   const navigate = useNavigate();
-  const pages = ['Home', 'Cart'];
+  const pages = ['Home', 'cart'];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -87,7 +87,7 @@ const settings = ['Profile', 'Logout'];
         </Box>
       </div>
 
-      <div className='d-flex align-items-center gap-2' onClick={() => { console.log('home') }}>
+      <div className='d-flex align-items-center gap-2'>
         <FastfoodIcon onClick={()=>{navigate('/home')}}/>
         <h5 className='mb-0 text-nowrap' onClick={()=>{navigate('/home')}}>Order Food</h5>
         
@@ -99,8 +99,8 @@ const settings = ['Profile', 'Logout'];
         {!isAdmin && (<div className='desktop'>
         <div className="container-fluid d-flex justify-content-center">
           {pages.map((page) => (
-            <MenuItem key={page} >
-              <Typography sx={{ textAlign: 'center', textDecoration: '', fontSize: 15 }}>{page.toUpperCase()}</Typography>
+            <MenuItem key={page}  >
+              <Typography  onClick={()=>{navigate(`/${page}`)}} sx={{ textAlign: 'center', textDecoration: '', fontSize: 15 }}>{page.toUpperCase()}</Typography>
             </MenuItem>
           ))}
         </div>
@@ -113,7 +113,7 @@ const settings = ['Profile', 'Logout'];
 
       <div className=' d-flex flex-row gap-4'>
         
-         {!isAdmin &&  (<ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "cart" } })}}/>)}
+         {!isAdmin &&  (<ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "orders" } })}}/>)}
         <Box>
         <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
         
