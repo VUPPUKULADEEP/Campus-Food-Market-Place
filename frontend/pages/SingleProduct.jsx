@@ -32,23 +32,9 @@ const SingleProduct = () => {
         <div id="carouselExample" className="carousel slide">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="../src/assets/sample.jpg" className="d-block w-100" alt="..." />
-            </div>
-            <div className="carousel-item">
-              <img src="../src/assets/sample.jpg" className="d-block w-100" alt="..." />
-            </div>
-            <div className="carousel-item">
-              <img src="../src/assets/sample.jpg" className="d-block w-100" alt="..." />
+              <img src="../src/assets/biriyani.jpg" className="d-block w-100" alt="..." />
             </div>
           </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Next</span>
-          </button>
         </div>
 
         <div className="col-md-6 my-4 mx-3">
@@ -68,7 +54,7 @@ const SingleProduct = () => {
 
 
 
-          <h3 className="text-success">₹2,999</h3>
+          <h3 className="text-success">₹299</h3>
           <p className="text-decoration-line-through text-muted">₹3,999</p>
 
           <p className="mt-3">
@@ -79,13 +65,12 @@ const SingleProduct = () => {
 
           <div className="mb-3">
             <label className="form-label">Quantity</label>
-            <input type="number" class="form-control w-25" value='1' min="1" />
+            <input type="number" class="form-control w-25" defaultValue={1} min="1" />
           </div>
 
 
           <div className="d-flex gap-3">
             <button className="btn btn-primary px-4">Add to Cart</button>
-            <button className="btn btn-outline-success px-4">Buy Now</button>
           </div>
 
 
