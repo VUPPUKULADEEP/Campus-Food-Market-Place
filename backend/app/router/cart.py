@@ -2,9 +2,45 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
+from app.models import Cart, CartItems
+from app.schemas import CartAddItem, CartResponse
 
 router = APIRouter()
 
-@router.get('/')
-def sample():
-    return {'message' : 'helloworld'}
+@router.post('/cart/{user_id}')
+def create_cart(user_id : int, db : Session = Depends(get_db)):
+    cart = db.query(Cart).filter(Cart.user_id == user_id).first()
+
+    if cart : 
+        return cart
+    
+    new_cart = Cart(user_id = user_id)
+    db.add(new_cart)
+    db.commit()
+    db.refresh(new_cart)
+
+    return new_cart
+
+
+@router.post('/cart/{id}/add', response_model=CartResponse)
+def add_item(id : int, item : CartAddItem, db: Session = Depends(get_db)):
+    cart_item = db.query(CartItems).filter(CartItems.cart_id == id and CartItems.item_id == item.item_id).first()
+
+    if cart_item:
+            return cart_item
+    else:
+        cart_item = CartItems(
+            cart_id = id,
+            item_id = item.item_id,
+            quantity = item.quantity
+        )
+        db.add(cart_item)
+    db.commit()
+    return cart_item
+
+@router.get('/cart_items/{cart_id}')
+def cart_items(cart_id : int, db: Session = Depends(get_db)):
+    cart_items = db.query(CartItems).filter(CartItems.cart_id == cart_id).first()
+    if not cart_items:
+        return {'message' : 'no cart items'}
+    return cart_items

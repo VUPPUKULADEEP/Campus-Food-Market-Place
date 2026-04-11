@@ -76,3 +76,20 @@ class ItemUpdate(BaseModel):
     model_config = {
         'from_attributes' : True
     }
+
+
+class CartAddItem(BaseModel):
+    item_id : int
+    quantity : int
+
+    model_config = {
+        'from_attributes' : True
+    }
+
+class CartResponse(BaseModel):
+    item_id : int
+    quantity : int
+    cart_id : int
+    model_config = {
+        'from_attributes' : True
+    }
