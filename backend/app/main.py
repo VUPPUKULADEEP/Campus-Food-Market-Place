@@ -23,7 +23,7 @@ init_db()
 
 app.include_router(users.router, prefix='/users', tags=["users"])
 app.include_router(orders.router, prefix='/orders', tags=["orders"])
-app.include_router(admin.router, prefix='/admin', tags=['admin'])
-app.include_router(cart.router, prefix='/cart', tags=['cart'])
+app.include_router(admin.router, prefix='/admins', tags=['admin'])
+app.include_router(cart.router, prefix='/carts', tags=['cart'])
 app.include_router(items.router, prefix='/items', tags=['items'])
 

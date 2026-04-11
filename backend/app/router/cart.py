@@ -59,3 +59,15 @@ def update_quantity(cart_id : int, item_id : int , quantity : int, db: Session =
 
     return cart_item
 
+
+@router.delete('/cart/{cart_id}')
+def delete_cart(cart_id : int, db:Session = Depends(get_db)):
+    cart = db.query(Cart).filter(Cart.cart_id == cart_id).first()
+    if not cart:
+        return HTTPException(status_code=404, detail='cart not found')
+    db.delete(cart)
+    db.commit()
+    return {'message' : 'cart deleted'}
+
+
+

@@ -45,7 +45,7 @@ class Cart(base):
     cart_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
 
-    cart_items = relationship("CartItems", back_populates="cart")
+    cart_items = relationship("CartItems", back_populates="cart", cascade="all, delete")
 
 
 class CartItems(base):
