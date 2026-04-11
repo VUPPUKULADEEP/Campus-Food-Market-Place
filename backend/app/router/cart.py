@@ -24,7 +24,7 @@ def create_cart(user_id : int, db : Session = Depends(get_db)):
 
 @router.post('/cart/{id}/add', response_model=CartResponse)
 def add_item(id : int, item : CartAddItem, db: Session = Depends(get_db)):
-    cart_item = db.query(CartItems).filter(CartItems.cart_id == id and CartItems.item_id == item.item_id).first()
+    cart_item = db.query(CartItems).filter(CartItems.cart_id == id , CartItems.item_id == item.item_id).first()
 
     if cart_item:
             return cart_item
@@ -40,7 +40,22 @@ def add_item(id : int, item : CartAddItem, db: Session = Depends(get_db)):
 
 @router.get('/cart_items/{cart_id}')
 def cart_items(cart_id : int, db: Session = Depends(get_db)):
-    cart_items = db.query(CartItems).filter(CartItems.cart_id == cart_id).first()
+    cart_items = db.query(CartItems).filter(CartItems.cart_id == cart_id).all()
     if not cart_items:
         return {'message' : 'no cart items'}
     return cart_items
+
+@router.patch('/cart/{cart_id}/item/{item_id}' , response_model=CartResponse)
+def update_quantity(cart_id : int, item_id : int , quantity : int, db: Session = Depends(get_db)): 
+    cart_item = db.query(CartItems).filter(CartItems.cart_id == cart_id, CartItems.item_id == item_id).first()
+
+    if not cart_item:
+        raise HTTPException(status_code=404, detail='item not found')
+
+    cart_item.quantity = quantity
+
+    db.commit()
+    db.refresh(cart_item)
+
+    return cart_item
+
