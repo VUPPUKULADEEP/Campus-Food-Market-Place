@@ -7,9 +7,6 @@ from app.models import Items
 
 router = APIRouter()
 
-@router.get('/')
-def sample():
-    return {'message' : 'helloworld'}
 
 @router.post('/create', response_model=ItemResponse)
 def create_user( item:ItemsCreate,db: Session = Depends(get_db)):
