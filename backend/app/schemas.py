@@ -45,3 +45,34 @@ class AdminResponse(BaseModel):
     model_config = {
         'from_attributes': True
     }
+
+
+class ItemsCreate(BaseModel):
+    item_name : str
+    quantity : int
+    admin_id : int
+    price : int
+
+    model_config = {
+        'from_attributes': True
+    }
+
+class ItemResponse(BaseModel):
+    item_id : int
+    item_name : str
+    quantity : int
+    price : int
+    admin : AdminResponse
+
+    model_config = {
+        'from_attributes': True
+    }
+
+class ItemUpdate(BaseModel):
+    item_name : str
+    quantity : int
+    price : int
+
+    model_config = {
+        'from_attributes' : True
+    }
