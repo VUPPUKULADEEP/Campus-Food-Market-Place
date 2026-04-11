@@ -60,6 +60,15 @@ def update_quantity(cart_id : int, item_id : int , quantity : int, db: Session =
     return cart_item
 
 
+@router.delete('/cart/{cart_id}/item/{item_id}')
+def delete_cart(cart_id : int, item_id : int, db:Session = Depends(get_db)):
+    cart_item = db.query(CartItems).filter(CartItems.cart_id == cart_id, CartItems.item_id == item_id).first()
+    if not cart_item:
+        return HTTPException(status_code=404, detail='may be cart or item in cart not exists')
+    db.delete(cart_item)
+    db.commit()
+    return {'message' : 'item removed from cart'}
+
 @router.delete('/cart/{cart_id}')
 def delete_cart(cart_id : int, db:Session = Depends(get_db)):
     cart = db.query(Cart).filter(Cart.cart_id == cart_id).first()
@@ -68,6 +77,7 @@ def delete_cart(cart_id : int, db:Session = Depends(get_db)):
     db.delete(cart)
     db.commit()
     return {'message' : 'cart deleted'}
+
 
 
 
