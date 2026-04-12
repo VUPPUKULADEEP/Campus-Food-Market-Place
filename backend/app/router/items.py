@@ -4,12 +4,16 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.schemas import ItemsCreate, ItemResponse, ItemUpdate
 from app.models import Items
+from fastapi import UploadFile, File
+import shutil
+import uuid
+
 
 router = APIRouter()
 
 
 @router.post('/create', response_model=ItemResponse)
-def create_user( item:ItemsCreate,db: Session = Depends(get_db)):
+def create_user( item:ItemsCreate, db: Session = Depends(get_db)):
     try:
         item = Items(**item.dict())
         db.add(item)
@@ -64,3 +68,23 @@ def delete_item(item_id : int, db: Session = Depends(get_db)):
     return {'message' : 'item deleted '}
 
 
+@router.post('/item/{item_id}/upload', response_model=ItemResponse)
+def upload_image(item_id : int, pic : UploadFile = File(...), db: Session = Depends(get_db)):
+    ''' api to upload the image'''
+    item = db.query(Items).filter(Items.item_id == item_id).first()
+    
+    if not item:
+        return HTTPException(status_code=404, detail='item not found')
+
+    pic_file_name = f"{uuid.uuid4()}_{pic.filename}"
+    path = f"images/{pic_file_name}"
+
+    with open(path, 'wb') as buffer:
+        shutil.copyfileobj(pic.file, buffer)
+    
+    item.image_url = path
+    db.commit()
+    db.refresh(item)
+
+    return item
+    

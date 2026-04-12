@@ -1,6 +1,6 @@
 #here need to create the tables which are present in the database using sqlalchemy(orm mapper)
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from .database import base
 from sqlalchemy.orm import relationship
 
@@ -35,6 +35,7 @@ class Items(base):
     quantity = Column(Integer, default=0)
     admin_id = Column(Integer, ForeignKey("admins.admin_id"))
     price = Column(Integer, nullable=False)
+    image_url = Column(Text, nullable=True)
 
     admin = relationship("Admins", back_populates='items')
 

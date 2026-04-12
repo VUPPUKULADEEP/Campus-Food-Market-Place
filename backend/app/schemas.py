@@ -1,6 +1,7 @@
 # write here the pydantic schemas which need to validate the apis and response to users
 
 from pydantic import BaseModel,EmailStr
+from typing import Optional
 
 
 class UserCreate(BaseModel):
@@ -62,6 +63,7 @@ class ItemResponse(BaseModel):
     item_name : str
     quantity : int
     price : int
+    image_url : Optional[str]
     admin : AdminResponse
 
     model_config = {
