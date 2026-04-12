@@ -22,20 +22,21 @@ def create_cart(user_id : int, db : Session = Depends(get_db)):
     return new_cart
 
 
-@router.post('/cart/{id}/add', response_model=CartResponse)
-def add_item(id : int, item : CartAddItem, db: Session = Depends(get_db)):
-    cart_item = db.query(CartItems).filter(CartItems.cart_id == id , CartItems.item_id == item.item_id).first()
+@router.post('/cart/add/item', response_model=CartResponse)
+def add_item( item : CartAddItem, db: Session = Depends(get_db)):
+    cart_item = db.query(CartItems).filter(CartItems.cart_id == item.cart_id , CartItems.item_id == item.item_id).first()
 
     if cart_item:
             return cart_item
     else:
         cart_item = CartItems(
-            cart_id = id,
+            cart_id = item.cart_id,
             item_id = item.item_id,
             quantity = item.quantity
         )
         db.add(cart_item)
     db.commit()
+    db.refresh(cart_item)
     return cart_item
 
 @router.get('/cart_items/{cart_id}')

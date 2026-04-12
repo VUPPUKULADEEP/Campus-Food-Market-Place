@@ -81,6 +81,7 @@ class ItemUpdate(BaseModel):
 
 
 class CartAddItem(BaseModel):
+    cart_id : int
     item_id : int
     quantity : int
 
@@ -95,3 +96,4 @@ class CartResponse(BaseModel):
     model_config = {
         'from_attributes' : True
     }
+
