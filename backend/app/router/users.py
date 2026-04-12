@@ -30,6 +30,14 @@ def get_users(db: Session = Depends(get_db)):
     users = db.query(Users).all()
     return users
 
+@router.get('/by/{user_id}', response_model=UserResponse)
+def get_user_by_id(user_id : int, db:Session = Depends(get_db)):
+    user = db.query(Users).filter(Users.user_id == user_id).first()
+    if not user:
+        return HTTPException(status_code=404, detail='user not found')
+
+    return user
+
 @router.post('/login', response_model=UserResponse)
 def login(user: Login, db:Session = Depends(get_db)):
     try:

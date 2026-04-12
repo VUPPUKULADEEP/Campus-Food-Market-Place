@@ -26,6 +26,14 @@ def get_admins(db: Session = Depends(get_db)):
     admins = db.query(Admins).all()
     return admins
 
+@router.get('/by/{admin_id}', response_model=AdminResponse)
+def get_user_by_id(admin_id : int, db:Session = Depends(get_db)):
+    admin = db.query(Admins).filter(Admins.admin_id == admin_id).first()
+    if not admin:
+        return HTTPException(status_code=404, detail='user not found')
+
+    return admin
+
 @router.post('/login', response_model=AdminResponse)
 def login(admin: Login, db:Session = Depends(get_db)):
     try:
