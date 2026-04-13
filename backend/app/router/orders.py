@@ -8,9 +8,21 @@ from app.models import Users, OrderDetails, Orders, Cart, CartItems
 
 router = APIRouter()
 
-@router.get('/')
-def sample():
-    return {'message' : 'helloworld'}
+@router.get('/order/{order_id}',response_model= OrderList)
+def get_order_by_id(order_id : int , db : Session = Depends(get_db)):
+    order = db.query(Orders).filter(Orders.order_id == order_id).first()
+
+    if not order:
+        raise HTTPException(status_code=404, detail='order not found')
+
+    return order
+
+@router.get('/order/all/',response_model= list[OrderList])
+def get_order_by_id( db : Session = Depends(get_db)):
+    order = db.query(Orders).all()
+
+    return order
+
 
 
 @router.post('/order/create')
@@ -64,7 +76,7 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
     if not order:
         raise HTTPException(status_code=404, detail='no order found')
 
-    order_details = db.query(OrderDetails).filter(Orders.order_id == order_id).all()
+    order_details = db.query(OrderDetails).filter(OrderDetails.order_id == order_id).all()
 
     if not order_details:
         raise HTTPException(status_code=404, detail='no order details found')
@@ -94,3 +106,15 @@ def orders_by_user(user_id : int, db : Session = Depends(get_db)):
     orders = db.query(Orders).filter(Orders.user_id == user_id).all()
 
     return orders
+
+@router.delete('/order/{order_id}/delete')
+def delete_order(order_id : int, db : Session = Depends(get_db)):
+    order = db.query(Orders).filter(Orders.order_id == order_id).first()
+
+    if not order:
+        raise HTTPException(status_code=404, detail='order not found')
+
+    db.delete(order)
+    db.commit()
+    
+    return {'message' : 'order deleted '}
