@@ -2,7 +2,7 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.schemas import OrderCreate, OrderSummary, OrderItem
+from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 
 
@@ -89,3 +89,8 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
     }
 
 
+@router.get('/user/{user_id}', response_model=list[OrderList])
+def orders_by_user(user_id : int, db : Session = Depends(get_db)):
+    orders = db.query(Orders).filter(Orders.user_id == user_id).all()
+
+    return orders

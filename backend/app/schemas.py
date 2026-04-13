@@ -124,6 +124,16 @@ class OrderSummary(BaseModel):
     time_stamp : datetime
     items : List[OrderItem]
     total_amount : int
+
+    model_config = {
+        'from_attributes' : True
+    }
+
+class OrderList(BaseModel):
+    order_id : int
+    status : str
+    time_stamp : datetime
+    total_amount : int
     
     model_config = {
         'from_attributes' : True
