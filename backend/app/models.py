@@ -29,6 +29,7 @@ class Admins(base):
     email = Column(String(30), unique = True, nullable=False)
     password = Column(String(20), nullable=False)
 
+    admin_orders = relationship('Orders', back_populates='admin')
     items = relationship("Items", back_populates='admin')
 
 
@@ -74,8 +75,10 @@ class Orders(base):
     user_id = Column(Integer, ForeignKey("users.user_id"), index=True)
     total_amount = Column(Integer, nullable=False)
     status = Column(Text, default='placed', nullable=False)
+    admin_id = Column(Integer, ForeignKey("admins.admin_id"), index=True)
     time_stamp = Column(DateTime, default=datetime.utcnow)
 
+    admin = relationship("Admins", back_populates='admin_orders')
     user = relationship("Users", back_populates='orders')
     order_details = relationship("OrderDetails", back_populates='order', cascade="all, delete")
 
@@ -85,7 +88,7 @@ class OrderDetails(base):
 
     id = Column(Integer, primary_key = True)
     order_id = Column(Integer, ForeignKey("orders.order_id"), index=True)
-    item_id = Column(Integer, ForeignKey("items.item_id"))
+    item_id = Column(Integer, ForeignKey("items.item_id"), index=True)
     quantity = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
 

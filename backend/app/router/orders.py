@@ -2,7 +2,7 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList
+from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 
 
@@ -35,13 +35,17 @@ def create_order(order : OrderCreate, db : Session = Depends(get_db)):
     if not cart_items:
         raise HTTPException(status_code=404, detail='cart has no items')
     
+    cart_admin_id = cart_items[0].item.admin_id
     total= 0
     for cart_item in cart_items:
         total += cart_item.quantity * cart_item.item.price
     
+    
+
     new_order = Orders(
         user_id = cart.user_id,
-        total_amount = total 
+        total_amount = total,
+        admin_id = cart_admin_id
     )
     db.add(new_order)
     db.commit()
@@ -65,7 +69,8 @@ def create_order(order : OrderCreate, db : Session = Depends(get_db)):
 
     return {
         'message' : 'order created',
-        'order_id' : new_order.order_id
+        'order_id' : new_order.order_id,
+        'admin_id' : cart_admin_id
     }
 
 
@@ -97,7 +102,8 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
         'status' : order.status,
         'time_stamp' : order.time_stamp,
         'items' : items,
-        'total_amount' : order.total_amount
+        'total_amount' : order.total_amount,
+        'admin_id' : order.admin_id
     }
 
 
@@ -118,3 +124,12 @@ def delete_order(order_id : int, db : Session = Depends(get_db)):
     db.commit()
     
     return {'message' : 'order deleted '}
+
+@router.get('/admin/orders/{admin_id}' , response_model = list[AdminOrderList])
+def orders_by_admin(admin_id : int, db : Session = Depends(get_db)):
+    orders = db.query(Orders).filter(Orders.admin_id == admin_id).all()
+
+
+    return orders
+
+
