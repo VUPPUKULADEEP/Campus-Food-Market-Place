@@ -1,7 +1,8 @@
 # write here the pydantic schemas which need to validate the apis and response to users
 
 from pydantic import BaseModel,EmailStr
-from typing import Optional
+from typing import Optional, List
+from datetime import datetime
 
 
 class UserCreate(BaseModel):
@@ -97,3 +98,33 @@ class CartResponse(BaseModel):
         'from_attributes' : True
     }
 
+
+class OrderCreate(BaseModel):
+    user_id : int
+    cart_id : int
+
+
+    model_config = {
+        'from_attributes' : True
+    }
+
+class OrderItem(BaseModel):
+    item_name :str
+    quantity : int
+    price : int
+    total : int
+
+    model_config = {
+        'from_attributes' : True
+    }
+
+class OrderSummary(BaseModel):
+    order_id : int
+    status : str
+    time_stamp : datetime
+    items : List[OrderItem]
+    total_amount : int
+    
+    model_config = {
+        'from_attributes' : True
+    }

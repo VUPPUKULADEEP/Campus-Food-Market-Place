@@ -92,18 +92,3 @@ class OrderDetails(base):
     item = relationship('Items')
     order = relationship('Orders', back_populates='order_details')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
