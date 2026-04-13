@@ -2,7 +2,7 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.models import Cart, CartItems
+from app.models import Cart, CartItems, Items
 from app.schemas import CartAddItem, CartResponse
 
 router = APIRouter()
@@ -24,17 +24,43 @@ def create_cart(user_id : int, db : Session = Depends(get_db)):
 
 @router.post('/cart/add/item', response_model=CartResponse)
 def add_item( item : CartAddItem, db: Session = Depends(get_db)):
+    present_item = db.query(Items).filter(Items.item_id == item.item_id).first()
+    if not present_item:
+        raise HTTPException(status_code=400, detail='item not exists')
+    present_admin = present_item.admin_id
     cart_item = db.query(CartItems).filter(CartItems.cart_id == item.cart_id , CartItems.item_id == item.item_id).first()
 
     if cart_item:
+        if cart_item.item.admin_id == present_admin:
             return cart_item
-    else:
+        else:
+            raise HTTPException(status_code=400, detail='item belongs to other restaurant')
+    
+
+    first_one = db.query(CartItems).filter(CartItems.cart_id == item.cart_id).first()
+
+    if not first_one:
         cart_item = CartItems(
             cart_id = item.cart_id,
             item_id = item.item_id,
             quantity = item.quantity
         )
         db.add(cart_item)
+        db.commit()
+        db.refresh(cart_item)
+        return cart_item
+
+    
+    if first_one.item.admin_id != present_admin:
+        raise HTTPException(status_code=400, detail='admin must be same')
+    
+    
+    cart_item = CartItems(
+            cart_id = item.cart_id,
+            item_id = item.item_id,
+            quantity = item.quantity
+    )
+    db.add(cart_item)
     db.commit()
     db.refresh(cart_item)
     return cart_item
