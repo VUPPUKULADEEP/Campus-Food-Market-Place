@@ -34,22 +34,28 @@ const Signup = () => {
                 <form id="main-container" className="d-flex flex-column justify-content-start align-items-center" style={{ width: '25%' }} onSubmit={handleSubmit(onSubmit)}>
                     <h3>Register here </h3>
                     <div className="form-floating mb-3 col-12">
-                        <input type="text" className="form-control" id="first_name" placeholder="name@example.com"
-                            {...register('first_name',
+                        <input type="text" className="form-control" id="name" placeholder="Name"
+                            {...register('name',
                                 {
-                                    required: 'first name is required',
+                                    required: 'name is required',
                                     minLength: {
                                         value: 3, message: 'minimum 3 characters'
                                     }
                                 })} />
-                        <label htmlFor="first_name">firstname</label>
-                        {errors.firstname && <p class='error'>{errors.first_name.message}</p>}
+                        <label htmlFor="name">Name</label>
+                        {errors.name && <p class='error'>{errors.name.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
-                        <input type="text" className="form-control" id="last_name" placeholder="name@example.com"
-                            {...register('last_name')} />
-                        <label htmlFor="lastname">lastname</label>
-                        {errors.lastname && <p class='error'>{errors.last_name.message}</p>}
+                        <input type="text" className="form-control" id="reg_no" placeholder='Registration no'
+                            {...register('reg_no')} />
+                        <label htmlFor="reg_no">Registration no</label>
+                        {errors.reg_no && <p class='error'>{errors.reg_no.message}</p>}
+                    </div>
+                    <div className="form-floating mb-3 col-12">
+                        <input type="number" className="form-control" id="number" placeholder='mobile number'
+                            {...register('number')} />
+                        <label htmlFor="number">Mobile number</label>
+                        {errors.number && <p class='number'>{errors.number.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="email" className="form-control" id="email" placeholder="name@example.com"
