@@ -7,7 +7,7 @@ from datetime import datetime
 
 class UserCreate(BaseModel):
     first_name : str
-    last_name : str
+    reg_no : str
     email :EmailStr
     password : str
 
@@ -15,7 +15,7 @@ class UserCreate(BaseModel):
 class UserResponse(BaseModel):
     user_id : int
     first_name : str
-    last_name : str
+    reg_no : str
     email :EmailStr
     password : str
 
@@ -25,7 +25,7 @@ class UserResponse(BaseModel):
 
 
 class Login(BaseModel):
-    email : EmailStr
+    reg_no : EmailStr
     password : str
 
 

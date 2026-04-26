@@ -41,7 +41,7 @@ def get_user_by_id(user_id : int, db:Session = Depends(get_db)):
 @router.post('/login', response_model=UserResponse)
 def login(user: Login, db:Session = Depends(get_db)):
     try:
-        u = db.query(Users).filter(Users.email == user.email, Users.password == user.password).first()
+        u = db.query(Users).filter(Users.reg_no == user.reg_no, Users.password == user.password).first()
         if not u:
             raise HTTPException(status_code=401, detail='invalid user')
         return u
