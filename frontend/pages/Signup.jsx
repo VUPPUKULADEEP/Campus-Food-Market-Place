@@ -35,7 +35,7 @@ const Signup = () => {
                     <h3>Register here </h3>
                     <div className="form-floating mb-3 col-12">
                         <input type="text" className="form-control" id="name" placeholder="Name"
-                            {...register('name',
+                            {...register('first_name',
                                 {
                                     required: 'name is required',
                                     minLength: {
@@ -43,19 +43,21 @@ const Signup = () => {
                                     }
                                 })} />
                         <label htmlFor="name">Name</label>
-                        {errors.name && <p class='error'>{errors.name.message}</p>}
+                        {errors.first_name && <p class='error'>{errors.first_name.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="text" className="form-control" id="reg_no" placeholder='Registration no'
-                            {...register('reg_no')} />
+                            {...register('reg_no')} onChange={(e) =>{
+                                e.target.value = e.target.value.toUpperCase();
+                            }} />
                         <label htmlFor="reg_no">Registration no</label>
                         {errors.reg_no && <p class='error'>{errors.reg_no.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
-                        <input type="number" className="form-control" id="number" placeholder='mobile number'
-                            {...register('number')} />
+                        <input type="string" className="form-control" id="number" placeholder='mobile number'
+                            {...register('mobile_no')} />
                         <label htmlFor="number">Mobile number</label>
-                        {errors.number && <p class='number'>{errors.number.message}</p>}
+                        {errors.mobile_no && <p class='number'>{errors.mobile_no.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="email" className="form-control" id="email" placeholder="name@example.com"

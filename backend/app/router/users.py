@@ -15,6 +15,14 @@ def sample():
 
 @router.post('/create', response_model=UserResponse)
 def create_user( user:UserCreate,db: Session = Depends(get_db)):
+    existing_user = db.query(Users).filter(
+        (Users.reg_no == user.reg_no) |
+        (Users.email == user.email) |
+        (Users.mobile_no == user.mobile_no)
+    ).first()
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
     try:
         user = Users(**user.dict())
         db.add(user)
@@ -34,7 +42,7 @@ def get_users(db: Session = Depends(get_db)):
 def get_user_by_id(user_id : int, db:Session = Depends(get_db)):
     user = db.query(Users).filter(Users.user_id == user_id).first()
     if not user:
-        return HTTPException(status_code=404, detail='user not found')
+        raise HTTPException(status_code=404, detail='user not found')
 
     return user
 
@@ -48,7 +56,7 @@ def login(user: Login, db:Session = Depends(get_db)):
     except HTTPException as e:
         raise HTTPException(status_code=401, detail='invalid user')
     except Exception as e:
-        return{'message' : 'unknown exception'} 
+        raise Exception({'message' : 'unknown exception'} )
 
 
 

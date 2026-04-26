@@ -8,6 +8,7 @@ from datetime import datetime
 class UserCreate(BaseModel):
     first_name : str
     reg_no : str
+    mobile_no : str
     email :EmailStr
     password : str
 
@@ -16,6 +17,7 @@ class UserResponse(BaseModel):
     user_id : int
     first_name : str
     reg_no : str
+    mobile_no : str
     email :EmailStr
     password : str
 

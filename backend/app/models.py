@@ -1,6 +1,6 @@
 #here need to create the tables which are present in the database using sqlalchemy(orm mapper)
 
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, Boolean, Numeric
 from .database import base
 from sqlalchemy.orm import relationship
 from sqlalchemy import DateTime
@@ -14,6 +14,7 @@ class Users(base):
     first_name = Column(String(10), nullable=False)
     reg_no = Column(String(10), unique=True, nullable=False)
     email = Column(String(30), unique = True, nullable=False)
+    mobile_no = Column(String(10), unique=True, nullable= False)
     password = Column(String(20), nullable=False)
 
     orders = relationship('Orders', back_populates='user')
