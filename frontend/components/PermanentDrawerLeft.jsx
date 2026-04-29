@@ -36,16 +36,16 @@ function PermanentDrawerLeft({setPage}) {
         <Divider />
         <div className='profile-icon'>
           <AccountCircleIcon  className='icon' sx={{ height: 60, width: 60, display:'inline' }} />
-          <span className='span-text'>
+          {/* <span className='span-text'>
           hi,
-          </span>
+          </span> */}
          <h3 className='text'>
-          kuladeep
+          Hi!
          </h3>
         </div>
         <Divider />
         <List>
-          {['Account','orders', 'wishlist', 'logout'].map((text, index) => (
+          {['Account','orders', 'logout'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() =>{setPage(text)}}>
               <ListItemButton>
                 <ListItemIcon>
