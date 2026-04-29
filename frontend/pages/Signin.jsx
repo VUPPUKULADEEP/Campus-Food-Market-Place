@@ -14,13 +14,13 @@ const Signin = () => {
     console.log(userData)
     let response;
     try {
-      response = await axios.post(`${apiurl}/users/login`,
-        userData);
-        console.log(response)
-      // navigate('/home');
+      response = await axios.post(`${apiurl}/users/login`, userData);
+      console.log(response)
+      localStorage.setItem('user_id', response.data['user_id'])
+      navigate('/');
     }
     catch (error) {
-alert('login failed');
+      alert('login failed');
       console.log(error)
       // if (error.response.data.detail) {
       //   alert(error.response.data.detail)
@@ -36,9 +36,12 @@ alert('login failed');
           <h3>Login</h3>
 
           <div className="form-floating mb-3 col-12">
-            <input type="email" className="form-control" id="email" placeholder="name@example.com" {...register('email')} />
-            <label htmlFor="email">email</label>
-            {errors.email && <p className='error'>{errors.email.message}</p>}
+            <input type="text" className="form-control" id="reg_no" placeholder="reg no" {...register('reg_no')}
+              onChange={(e) => {
+                e.target.value = e.target.value.toUpperCase();
+              }} />
+            <label htmlFor="reg_no">Registration no</label>
+            {errors.reg_no && <p className='error'>{errors.reg_no.message}</p>}
           </div>
           <div className="form-floating mb-3 col-12">
             <input type="password" className="form-control" id="password" placeholder="xxxxxxxxxx" {...register('password')} />

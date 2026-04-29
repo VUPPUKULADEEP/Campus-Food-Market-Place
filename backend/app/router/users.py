@@ -51,7 +51,7 @@ def login(user: Login, db:Session = Depends(get_db)):
     try:
         u = db.query(Users).filter(Users.reg_no == user.reg_no, Users.password == user.password).first()
         if not u:
-            raise HTTPException(status_code=401, detail='invalid user')
+            raise HTTPException(status_code=401, detail='wrong credintials')
         return u
     except HTTPException as e:
         raise HTTPException(status_code=401, detail='invalid user')
