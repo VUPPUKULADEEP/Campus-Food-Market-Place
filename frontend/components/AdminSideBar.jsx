@@ -45,7 +45,7 @@ function AdminSideBar({setPage}) {
         </div>
         <Divider />
         <List>
-          {['Account','orders','items', 'logout'].map((text, index) => (
+          {['Account','Orders','Items', 'Logout'].map((text, index) => (
             <ListItem key={text} disablePadding onClick={() =>{setPage(text)}}>
               <ListItemButton>
                 <ListItemIcon>

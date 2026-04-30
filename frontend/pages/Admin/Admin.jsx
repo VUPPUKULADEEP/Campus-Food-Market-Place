@@ -6,7 +6,7 @@ import Account from '../Account'
 import Orders from '../Orders'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
-
+import Items from './Items'
 
 
 const Admin = () => {
@@ -21,9 +21,12 @@ const Admin = () => {
       case 'Account':
         console.log(page)
         return <Account />
-      case 'orders':
+      case 'Orders':
         console.log(page)
         return <Orders />
+      case 'Items':
+        console.log(page)
+        return <Items/>
       default:
         return <Account />
     }
