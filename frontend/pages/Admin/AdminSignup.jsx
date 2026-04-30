@@ -9,15 +9,16 @@ const AdminSignup = () => {
     const { register, formState: { errors }, handleSubmit, watch } = useForm()
     const password = watch("password")
     const apiurl = import.meta.env.VITE_BACKEND_URL;
-    console.log(import.meta.env.VITE_BACKEND_URL)
+    
     const onSubmit = async (data) => {
-        const { cnfpassword, ...userData } = data
-        console.log(userData)
+        const { cnfpassword, ...adminData } = data
+        console.log(adminData)
         let response;
         try {
-            response = await axios.post(`${apiurl}/admin/create`,
-                userData);
+            response = await axios.post(`${apiurl}/admins/create`,
+                adminData);
             navigate('/admin/signin');
+            console.log(response);
         }
         catch (error) {
             
@@ -44,13 +45,13 @@ const AdminSignup = () => {
                                     }
                                 })} />
                         <label htmlFor="first_name">firstname</label>
-                        {errors.firstname && <p class='error'>{errors.first_name.message}</p>}
+                        {errors.first_name && <p class='error'>{errors.first_name.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="text" className="form-control" id="last_name" placeholder="name@example.com"
                             {...register('last_name')} />
                         <label htmlFor="lastname">lastname</label>
-                        {errors.lastname && <p class='error'>{errors.last_name.message}</p>}
+                        {errors.last_name && <p class='error'>{errors.last_name.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="email" className="form-control" id="email" placeholder="name@example.com"

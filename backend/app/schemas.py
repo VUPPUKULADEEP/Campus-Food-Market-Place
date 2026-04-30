@@ -30,6 +30,10 @@ class Login(BaseModel):
     reg_no : str
     password : str
 
+class AdminLogin(BaseModel):
+    email : EmailStr
+    password : str
+
 
 
 class AdminCreate(BaseModel):

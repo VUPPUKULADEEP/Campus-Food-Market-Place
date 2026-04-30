@@ -36,7 +36,7 @@ const Account = () => {
     <input type="text"  value={data?.reg_no || 'xxxxxxxxxx'} readOnly />
   </div>
     <div >
-      <p id='deactivate'>deactivate account</p>
+      
       <p id='delete'>delete account</p>
     </div>
     </>

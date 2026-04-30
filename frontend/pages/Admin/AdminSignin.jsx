@@ -6,21 +6,20 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const AdminSignin = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { register, formState: { errors }, handleSubmit } = useForm()
-  const onSubmit = async (userData) => {
-    const apiurl = import.meta.env.VITE_BACKEND_URL;
-    console.log(userData)
+  const onSubmit = async (adminData) => {
+    const apiurl = import.meta.env.VITE_BACKEND_URL
     let response;
     try {
-      response = await axios.post(`${apiurl}/admin/login`,
-        userData);
-        console.log(response)
+      response = await axios.post(`${apiurl}/admins/login`, adminData);
+      console.log(response)
+      localStorage.setItem('admin_id', response.data['admin_id'])
       navigate('/admin');
     }
     catch (error) {
-alert('login failed');
+      alert('login failed');
       console.log(error)
       // if (error.response.data.detail) {
       //   alert(error.response.data.detail)
