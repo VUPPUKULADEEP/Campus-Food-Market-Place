@@ -5,7 +5,6 @@ import PermanentDrawerLeft from '../components/PermanentDrawerLeft'
 import Account from './Account'
 import Orders from './Orders'
 import Cart from './Cart'
-import Wishlist from './Wishlist'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 
@@ -25,15 +24,13 @@ const Profile = () => {
       case 'orders':
         console.log(page)
         return <Orders />
-      case 'wishlist':
-        return <Wishlist />
       default:
         return <Account />
     }
   }
   return (
     <>
-      <AppBar isAdmin={false}/>
+      <AppBar/>
 
       <div className='full-page'>
         <PermanentDrawerLeft  setPage={setPage} />

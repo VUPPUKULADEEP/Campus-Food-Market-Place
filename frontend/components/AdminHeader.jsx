@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom'
 
 
-const AppBar = () => {
+const AdminHeaderBar = () => {
 const settings = ['Profile', 'Logout'];
   const navigate = useNavigate();
   const pages = ['Home', 'cart'];
@@ -88,8 +88,8 @@ const settings = ['Profile', 'Logout'];
       </div>
 
       <div className='d-flex align-items-center gap-2'>
-        <FastfoodIcon onClick={()=>{navigate('/home')}}/>
-        <h5 className='mb-0 text-nowrap' onClick={()=>{navigate('/home')}}>Order Food</h5>
+        <FastfoodIcon onClick={()=>{navigate('/admin')}}/>
+        <h5 className='mb-0 text-nowrap' onClick={()=>{navigate('/admin')}}>Order Food</h5>
         
           <div className='search'>
             <input type="text" placeholder='search...' className='input-box'/>
@@ -97,13 +97,13 @@ const settings = ['Profile', 'Logout'];
           </div>
           
         <div className='desktop'>
-        <div className="container-fluid d-flex justify-content-center">
+        {/* <div className="container-fluid d-flex justify-content-center">
           {pages.map((page) => (
             <MenuItem key={page}  >
               <Typography  onClick={()=>{navigate(`/${page}`)}} sx={{ textAlign: 'center', textDecoration: '', fontSize: 15 }}>{page.toUpperCase()}</Typography>
             </MenuItem>
           ))}
-        </div>
+        </div> */}
         </div>
       </div>
 
@@ -113,10 +113,10 @@ const settings = ['Profile', 'Logout'];
 
       <div className=' d-flex flex-row gap-4'>
         
-         <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/profile', { state: { page: "orders" } })}}/>
+         {/* {/* <ShoppingCartIcon sx={{ height: 30, width: 30 }} onClick={()=>{navigate('/admin/profile', { state: { page: "orders" } })}}/>
         <Box>
         <AccountCircleIcon onClick={handleOpenUserMenu} sx={{ height: 30, width: 30 }} />
-        
+         
         
         <Menu
               sx={{ mt: '45px' }}
@@ -136,12 +136,12 @@ const settings = ['Profile', 'Logout'];
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }} onClick={()=>{navigate(`/${setting}`)}}>{setting}</Typography>
+                  <Typography sx={{ textAlign: 'center' }} onClick={()=>{navigate({ state: { page: `${setting}` } })}}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-        
+         */}
       </div>
 
     </div>
@@ -150,4 +150,4 @@ const settings = ['Profile', 'Logout'];
   )
 }
 
-export default AppBar
+export default AdminHeaderBar

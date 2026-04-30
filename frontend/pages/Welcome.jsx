@@ -8,7 +8,7 @@ import Card from './Card'
 const Welcome = () => {
     return (
         <>
-            <AppBar isAdmin={false}/>
+            <AppBar />
             {/* <ResponsiveAppBar /> */}
 
 
