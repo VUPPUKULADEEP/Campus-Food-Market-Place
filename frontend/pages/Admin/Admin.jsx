@@ -7,6 +7,7 @@ import Orders from '../Orders'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 import Items from './Items'
+import AdminAccount from './AdminAccount'
 
 
 const Admin = () => {
@@ -20,7 +21,7 @@ const Admin = () => {
     switch (page) {
       case 'Account':
         console.log(page)
-        return <Account />
+        return <AdminAccount />
       case 'Orders':
         console.log(page)
         return <Orders />
