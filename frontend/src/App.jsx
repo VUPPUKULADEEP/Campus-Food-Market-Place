@@ -10,7 +10,7 @@ import Cart from "../pages/Cart"
 import Admin from "../pages/Admin/Admin"
 import AdminSignin from "../pages/Admin/AdminSignin"
 import AdminSignup from "../pages/Admin/AdminSignup"
-import AdminProfile from "../pages/Admin/AdminProfile"
+import AdminAddItem from "../pages/Admin/AdminAddItem"
 
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path='/admin' element={<Admin/>}></Route>
         <Route path='/admin/signin' element={<AdminSignin/>}/>
         <Route path="/admin/signup" element={<AdminSignup/>}/>
-        <Route path="/admin/profile" element={<AdminProfile/>}/>
+        <Route path="/admin/additem" element={<AdminAddItem/>}/>
 
       </Routes>
     </BrowserRouter>

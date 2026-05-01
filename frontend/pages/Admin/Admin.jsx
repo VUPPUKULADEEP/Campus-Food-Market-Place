@@ -5,7 +5,7 @@ import AdminSideBar from '../../components/AdminSideBar'
 import AdminOrders from './AdminOrders'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
-import AdminItems from './Items'
+import AdminItems from './AdminItems'
 import AdminAccount from './AdminAccount'
 
 
