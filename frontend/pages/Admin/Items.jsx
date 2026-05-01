@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Items = () => {
+const AdminItems = () => {
   return (
     <div>items</div>
   )
 }
 
-export default Items
+export default AdminItems

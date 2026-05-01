@@ -60,6 +60,12 @@ const AdminSignup = () => {
                         {errors.email && <p class='error'>{errors.email.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
+                        <input type="text" className="form-control" id="mobile_no" placeholder=""
+                            {...register('mobile_no')} />
+                        <label htmlFor="mobile_no">Mobile Number</label>
+                        {errors.email && <p class='error'>{errors.email.message}</p>}
+                    </div>
+                    <div className="form-floating mb-3 col-12">
                         <input type="password" className="form-control" id="password" placeholder="xxxxxxxxxx"
                             {...register('password',
                                 {

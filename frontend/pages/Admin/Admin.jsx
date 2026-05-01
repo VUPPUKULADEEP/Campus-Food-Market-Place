@@ -2,11 +2,10 @@
 import AppBar from '../../components/AppBar'
 import AdminHeaderBar from '../../components/AdminHeader'
 import AdminSideBar from '../../components/AdminSideBar'
-import Account from '../Account'
-import Orders from '../Orders'
+import AdminOrders from './AdminOrders'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
-import Items from './Items'
+import AdminItems from './Items'
 import AdminAccount from './AdminAccount'
 
 
@@ -24,12 +23,12 @@ const Admin = () => {
         return <AdminAccount />
       case 'Orders':
         console.log(page)
-        return <Orders />
+        return <AdminOrders />
       case 'Items':
         console.log(page)
-        return <Items/>
+        return <AdminItems/>
       default:
-        return <Account />
+        return <AdminAccount />
     }
   }
   return (<>

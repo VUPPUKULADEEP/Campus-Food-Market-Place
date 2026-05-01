@@ -29,6 +29,8 @@ class Admins(base):
     last_name = Column(String(10), nullable=True)
     email = Column(String(30), unique = True, nullable=False)
     password = Column(String(20), nullable=False)
+    mobile_no = Column(String(10), unique=True, nullable= False)
+    is_open = Column(Boolean, default=False)
 
     admin_orders = relationship('Orders', back_populates='admin')
     items = relationship("Items", back_populates='admin')

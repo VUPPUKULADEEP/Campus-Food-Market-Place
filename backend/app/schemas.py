@@ -40,6 +40,7 @@ class AdminCreate(BaseModel):
     first_name : str
     last_name : str
     email :EmailStr
+    mobile_no: str
     password : str
 
 
@@ -48,7 +49,9 @@ class AdminResponse(BaseModel):
     first_name : str
     last_name : str
     email :EmailStr
+    mobile_no : str
     password : str
+    is_open : bool
 
     model_config = {
         'from_attributes': True

@@ -33,8 +33,8 @@ const AdminAccount = () => {
     <input type="email" value={data?.email || 'xxxxxx@email.com'} readOnly />
     <h4>Mobile number <a href="#">Edit</a></h4>
     <input type="number" value={data?.mobile_no || 'xxxxxxxxxx'} readOnly />
-    <h4>Registration No: <a href="#">Edit</a></h4> 
-    <input type="text"  value={data?.reg_no || 'xxxxxxxxxx'} readOnly />
+    <h4>Status: <a href="#">Edit</a></h4> 
+    <input type="text"  value={data?.is_open? 'Open' : 'Closed'} readOnly />
   </div>
     <div >
       
