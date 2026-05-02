@@ -15,9 +15,10 @@ const AdminAddItem = () => {
         console.log(data)
         let response;
         try {
-            response = await axios.post(`${apiurl}/users/create`,
-                userData);
-            navigate('/signin');
+            // response = await axios.post(`${apiurl}/users/create`,
+                // userData);
+            // navigate('/signin');
+            console.log('try');
         }
         catch (error) {  
             console.log(error.response.data.detail)
@@ -59,9 +60,9 @@ const AdminAddItem = () => {
                         {errors.price && <p class='number'>{errors.price.message}</p>}
                     </div>
                     
-                    <div className="d-flex flex-column gap-2 col-12 mx-auto">
-                        <button className='btn btn-danger' type='reset'>go back</button>
-                        <button className="btn btn-primary" type="submit" >submit </button>
+                    <div className="d-flex justify-content-evenly gap-1 w-100">
+                        <button className='btn btn-danger w-50 rounded' type='reset'>go back</button>
+                        <button className="btn btn-primary w-50 rounded" type="submit" >submit </button>
 
                     </div>
 

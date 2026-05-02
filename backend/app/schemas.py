@@ -63,6 +63,7 @@ class ItemsCreate(BaseModel):
     quantity : int
     admin_id : int
     price : int
+    
 
     model_config = {
         'from_attributes': True
