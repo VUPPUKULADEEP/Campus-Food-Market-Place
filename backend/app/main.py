@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .models import Users
 from .schemas import UserCreate,UserResponse
 from app.router import users, orders, admin, items, cart
-
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title='Order Food')
 app.add_middleware(
@@ -17,6 +17,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+app.mount("/images", StaticFiles(directory="images"), name="images")
 
 init_db()
 

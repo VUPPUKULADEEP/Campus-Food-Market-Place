@@ -45,8 +45,10 @@ const AdminAddItem = () => {
             }
             console.log('item + image uploaded')
             // console.log(finaldata)
+            navigate('/admin')
         }
         catch(error){
+            alert('item not added ')
             console.log(error)
         }
         
