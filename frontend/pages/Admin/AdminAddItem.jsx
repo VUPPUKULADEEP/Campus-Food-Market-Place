@@ -1,33 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import AdminHeaderBar from '../../components/AdminHeader'
 import AdminSideBar from '../../components/AdminSideBar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios'
 
 const AdminAddItem = () => {
     const navigate = useNavigate();
+    const [isImage, setisImage] = useState(false)
+    const [preview, setPreview] = useState(null)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const apiurl = import.meta.env.VITE_BACKEND_URL;
-    console.log(import.meta.env.VITE_BACKEND_URL)
+    const formData = new FormData()
+
+    const createItem = async (data) => {
+        const response = await axios.post(`${apiurl}/items/create`,data)
+
+        return response.data
+    }
+
+    const uploadImage = async(item_id, file) => {
+        const formData = new FormData()
+        formData.append("pic", file)
+
+        await axios.post(`${apiurl}/items/item/${item_id}/upload`, formData,{
+                headers : {'Content-Type' : 'multipart/form-data'}
+        })
+        console.log('image uploaded')
+    }
+
     const onSubmit = async (data) => {
         console.log(data)
         const finaldata = {
             ...data,
             'admin_id': localStorage.getItem('admin_id')
         }
-        let response;
-        try {
-            // response = await axios.post(`${apiurl}/items/create`,data);
-            console.log(finaldata)
-        }
-        catch (error) {
-            console.log(error.response.data.detail)
-            if (error.response.data.detail) {
-                alert(error.response.data.detail)
+
+        try{
+            const createdItem = await createItem(finaldata)
+        
+            if(data.image_url && data.image_url.length > 0){
+                await uploadImage(createdItem.item_id, data.image_url[0])
             }
+            console.log('item + image uploaded')
+            // console.log(finaldata)
         }
+        catch(error){
+            console.log(error)
+        }
+        
+        
 
 
     }
@@ -65,7 +88,7 @@ const AdminAddItem = () => {
                     <label htmlFor="number">price</label>
                     {errors.price && <p class='number'>{errors.price.message}</p>}
                 </div>
-                 {/* <div className="mb-3 w-100 text-center">
+                 <div className="mb-3 w-100 text-center">
                     <label className="form-label fw-semibold">Upload Image</label>
 
                     <input
@@ -73,20 +96,26 @@ const AdminAddItem = () => {
                         className="form-control"
                         accept="image/*"
                         {...register("image_url")
-
                         }
+                        onChange={(e) => {
+                            const file = e.target.files[0]
+                            if (file){
+                                setPreview(URL.createObjectURL(file))
+                                setisImage(true)
+                            }
+                        }}
                     />
 
                     
-                    {register("image_url")&& (
+                    {isImage && preview &&(
                         <img
-                            src={register('image_url')}
+                            src={preview}
                             alt="preview"
                             className="mt-3 rounded"
                             style={{ width: "150px", height: "150px", objectFit: "cover" }}
                         />
                     )}
-                </div>  */}
+                </div> 
 
                 <div className="d-flex justify-content-evenly gap-1 w-100">
                     <button className='btn btn-danger w-50 rounded' type='reset'>go back</button>
