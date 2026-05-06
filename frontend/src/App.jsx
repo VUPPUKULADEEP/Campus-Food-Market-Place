@@ -11,7 +11,7 @@ import Admin from "../pages/Admin/Admin"
 import AdminSignin from "../pages/Admin/AdminSignin"
 import AdminSignup from "../pages/Admin/AdminSignup"
 import AdminAddItem from "../pages/Admin/AdminAddItem"
-
+import AdminItemEdit from "../pages/Admin/AdminItemEdit"
 
 function App() {
   
@@ -32,6 +32,7 @@ function App() {
         <Route path='/admin/signin' element={<AdminSignin/>}/>
         <Route path="/admin/signup" element={<AdminSignup/>}/>
         <Route path="/admin/additem" element={<AdminAddItem/>}/>
+        <Route path='/admin/item/:id' element={<AdminItemEdit/>}/>
 
       </Routes>
     </BrowserRouter>

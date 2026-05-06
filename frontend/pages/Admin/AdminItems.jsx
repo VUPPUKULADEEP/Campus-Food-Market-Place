@@ -50,7 +50,7 @@ const AdminItems = () => {
                       <p className="card-text">₹ {item.price}</p>
                       <p className="card-text">Qty: {item.quantity}</p>
                       <div className="d-flex justify-content-between">
-                        <button className="btn btn-sm btn-warning">Edit</button>
+                        <button className="btn btn-sm btn-warning" onClick={() => {navigate(`item/${item.item_id}`)}}>Edit</button>
                         <button className="btn btn-sm btn-danger">Delete</button>
                       </div>
                     </div>
