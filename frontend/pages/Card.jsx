@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Card = ({data}) => {
   const apiurl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
-  const value = 3.5
+  const short_description = `${data.item_name} available at ${data.admin.first_name} for ₹${data.price}`
   return (
     <>
     
@@ -18,8 +18,8 @@ const Card = ({data}) => {
     <h5 className="card-title">
       {data.item_name}
     </h5>
-    <p className="card-text">{data.item_name} price {data.price} by {data.admin.first_name} </p>
-    <button className="btn btn-primary" onClick={()=>{navigate('/single', {state : {data:data}} )}}>See Details</button>
+    <p className="card-text">{short_description}</p>
+    <button className="btn btn-primary" onClick={()=>{navigate(`/single/${data.item_id}`, {state : {data:data}} )}}>See Details</button>
     {/* <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
             <Rating
               name="text-feedback"
