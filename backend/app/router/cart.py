@@ -24,6 +24,15 @@ def create_cart(user_id : int, db : Session = Depends(get_db)):
 
 @router.post('/cart/add/item', response_model=CartResponse)
 def add_item( item : CartAddItem, db: Session = Depends(get_db)):
+    # if previously existing item then update quantity
+    existing_cart_item = db.query(CartItems).filter(CartItems.cart_id == item.cart_id , CartItems.item_id == item.item_id ).first()
+    if existing_cart_item :
+        existing_cart_item.quantity = item.quantity
+        db.commit()
+        db.refresh(existing_cart_item)
+        return existing_cart_item
+
+    # present item
     present_item = db.query(Items).filter(Items.item_id == item.item_id).first()
     if not present_item:
         raise HTTPException(status_code=400, detail='item not exists')
