@@ -1,21 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ResponsiveAppBar from '../components/ResponsiveAppBar'
 import AppBar from '../components/AppBar'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './home.css'
 import Card from './Card'
+import axios from 'axios'
 
 const Home = () => {
-  const element = []
-  for (let index = 0; index < 10; index++) {
-    element.push(<Card key={index} className='item'/>)
-    
-  }
+  const [items, setItems] = useState(null)
+  useEffect(() =>{
+    const fetchdata = async () => {
+    const apiurl = import.meta.env.VITE_BACKEND_URL;
+    let response;
+    try {
+      response = await axios.get(`${apiurl}/items/get_all`);
+      console.log(response.data)
+      setItems(response.data)
+    }
+    catch (error) {
+      alert('fail to fetch');
+      console.log(error)
+    }
+    }
+    fetchdata();
+  }, [])
+  
   return (
     <>
     <AppBar/>
     <div className='home-container'>
-    {element}
+    {items && items.map((item) => (
+      <Card key={item.item_id} data={item}/>
+    )
+    )}
 </div>
    
 
