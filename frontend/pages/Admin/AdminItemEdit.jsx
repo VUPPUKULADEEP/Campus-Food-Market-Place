@@ -5,11 +5,9 @@ import AdminHeaderBar from '../../components/AdminHeader'
 const AdminItemEdit = () => {
     const { id } = useParams()
     return (
-
         <>
         <AdminHeaderBar />
         
-        <p>item id {id}</p>
         </>
     )
 }
