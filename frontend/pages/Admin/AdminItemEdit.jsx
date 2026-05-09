@@ -10,9 +10,7 @@ import { useEffect } from 'react'
 const AdminItemEdit = () => {
     const navigate = useNavigate();
     const [item, setItem] = useState(null)
-    const [imageChange, setImageChange] = useState(false)
     const [preview, setPreview] = useState()
-    const [isImage, setisImage] = useState(false)
     const { register, formState: { errors,isDirty }, handleSubmit, reset } = useForm()
     const { id } = useParams()
     const {onChange : imageOnChange, ...imageRest} = register('image_url')
@@ -25,10 +23,12 @@ const AdminItemEdit = () => {
                 response = await axios.get(`${apiurl}/items/item/${id}`);
                 console.log(response.data)
                 setItem(response.data)
-                reset(response.data)
-                if (response.data.image_url) {
-                    setisImage(true)
-                }
+                reset({
+                    item_name : response.data.item_name,
+                    quantity : response.data.quantity,
+                    price: response.data.price
+                })
+                
             }
             catch (error) {
                 alert('fail to fetch');
@@ -47,9 +47,6 @@ const AdminItemEdit = () => {
         const formData = new FormData()
         formData.append("pic", file)
         console.log(formData.get('pic'))
-        if(formData.get('pic') === undefined){
-            return
-        }
         await axios.put(`${apiurl}/items/item/${item_id}/image`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
@@ -62,8 +59,8 @@ const AdminItemEdit = () => {
 
         try {
             const updatedItem = await updateItem(finaldata)
-
-            if (imageChange && data.image_url?.[0]) {
+            console.log(data.image_url)
+            if (data.image_url?.[0]) {
                 await updateImage(updatedItem.item_id, data.image_url[0])
             }
             console.log('item + image uploaded')
@@ -120,28 +117,26 @@ const AdminItemEdit = () => {
                             {...imageRest}
                             onChange={(e) => {
                                 imageOnChange(e)
-                                setImageChange(true)
                                 const file = e.target.files[0]
                                 if (file) {
                                     setPreview(URL.createObjectURL(file))
-                                    setisImage(true)
                                 }
                             }}
                         />
 
 
-                        {isImage && (
+                        {
                             <img
                                 src={
                                     preview ?
                                         preview :
                                         item?.image_url
-                                            ? `${apiurl}/${item.image_url}` : ''}
+                                            ? `${apiurl}/${item.image_url}` : null}
                                 alt="preview"
                                 className="mt-3 rounded"
                                 style={{ width: "150px", height: "150px", objectFit: "cover" }}
                             />
-                        )}
+                        }
                     </div>
 
                     <div className="d-flex justify-content-evenly gap-1 w-100">
