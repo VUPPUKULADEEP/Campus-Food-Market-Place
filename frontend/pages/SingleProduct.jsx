@@ -12,8 +12,9 @@ import axios from 'axios';
 import { useMemo } from 'react';
 
 const SingleProduct = () => {
+  const [cartId, setCartId] = useState(null);
   const apiurl = import.meta.env.VITE_BACKEND_URL;
-  const {id} = useParams()
+  const { id } = useParams()
   const [desc, setDesc] = useState('')
   const [item, setItem] = useState(null)
   const [quantity, setQuantity] = useState(1)
@@ -34,33 +35,41 @@ const SingleProduct = () => {
     fetchdata();
   }, [])
 
-  const addtocart = async() =>{
+  const addtocart = async () => {
     const user_id = localStorage.getItem('user_id')
     console.log(item)
-    let cart_details  = await axios.post(`${apiurl}/carts/cart/${user_id}`)
-    console.log(cart_details.data)
-    const cart_id = cart_details.data.cart_id
-    if (cart_id) {
-      // console.log(cart_id)
-      // const res = await axios.post(`${apiurl}/carts/cart/add/item`,{
-        
-
+    try {
+      let cart_details = await axios.post(`${apiurl}/carts/cart/${user_id}`)
+      console.log(cart_details.data)
+      setCartId(cart_details.data.cart_id)
     }
-      // })
-      console.log(  {"cart_id": cart_id,
-  "item_id": item.item_id,
-  "quantity": quantity})
+    catch (error) {
+      console.log(error)
     }
-
-  
+    try {
+      if (cartId) {
+        const res = await axios.post(`${apiurl}/carts/cart/add/item`, {
+          "cart_id": cartId,
+          "item_id": item.item_id,
+          "quantity": quantity
+        });
+        console.log(res.data)
+      }
+    }
+    catch (error) {
+      console.log(error)
+      alert('same restaurent items allowed to add')
+    }
+  }
 
   const oldPrice = useMemo(() => {
-    return item ? item.price + Math.floor(Math.random()*40) : 0},[item])
-  
-  return (
-    <>
-      <AppBar/>
-      {item ?
+    return item ? item.price + Math.floor(Math.random() * 40) : 0
+  }, [item])
+
+return (
+  <>
+    <AppBar />
+    {item ?
       <div className='w-100 d-flex flex-column justify-content-center align-items-center my-5'>
 
         <div id="carouselExample" className="carousel slide">
@@ -98,12 +107,12 @@ const SingleProduct = () => {
 
           <div className="mb-3">
             <label className="form-label" htmlFor='quantity'>Quantity</label>
-            <input type="number" className="form-control w-25" name='quantity' id='quantity' defaultValue={1} min="1" onChange={(e) => {setQuantity(Number(e.target.value))}} />
+            <input type="number" className="form-control w-25" name='quantity' id='quantity' defaultValue={1} min="1" onChange={(e) => { setQuantity(Number(e.target.value)) }} />
           </div>
 
 
           <div className="d-flex gap-3">
-            <button className="btn btn-primary px-4" onClick={() => {addtocart()}}>Add to Cart</button>
+            <button className="btn btn-primary px-4" onClick={() => { addtocart() }}>Add to Cart</button>
           </div>
 
 
@@ -115,8 +124,8 @@ const SingleProduct = () => {
 
 
       </div> : <p>Loading</p>}
-    </>
-  )
+  </>
+)
 }
 
 export default SingleProduct
