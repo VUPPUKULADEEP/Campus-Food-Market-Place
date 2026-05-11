@@ -101,9 +101,11 @@ class CartAddItem(BaseModel):
     }
 
 class CartResponse(BaseModel):
+    id : int
     item_id : int
     quantity : int
     cart_id : int
+    item : ItemResponse
     model_config = {
         'from_attributes' : True
     }

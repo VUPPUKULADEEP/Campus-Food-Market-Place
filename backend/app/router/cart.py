@@ -74,11 +74,11 @@ def add_item( item : CartAddItem, db: Session = Depends(get_db)):
     db.refresh(cart_item)
     return cart_item
 
-@router.get('/cart_items/{cart_id}')
+@router.get('/cart_items/{cart_id}', response_model=list[CartResponse])
 def cart_items(cart_id : int, db: Session = Depends(get_db)):
     cart_items = db.query(CartItems).filter(CartItems.cart_id == cart_id).all()
     if not cart_items:
-        return {'message' : 'no cart items'}
+        return []
     return cart_items
 
 @router.patch('/cart/{cart_id}/item/{item_id}' , response_model=CartResponse)
