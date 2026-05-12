@@ -125,7 +125,12 @@ def delete_order(order_id : int, db : Session = Depends(get_db)):
 
     if not order:
         raise HTTPException(status_code=404, detail='order not found')
-
+    order_details = db.query(OrderDetails).filter(OrderDetails.order_id == order_id).all()
+    for detail in order_details:
+        detail.item.quantity += detail.quantity
+    
+    for detail in order_details:
+        db.delete(detail)
     db.delete(order)
     db.commit()
     
