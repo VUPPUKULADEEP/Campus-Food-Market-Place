@@ -2,7 +2,7 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList, AdminOrderSimple
+from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList, AdminOrderSimple, UpdateStatus
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 
 
@@ -178,3 +178,31 @@ def order_by_admin(admin_id : int, order_id : int, db : Session = Depends(get_db
     }
 
 
+@router.patch('/order/{order_id}/status')
+def update_order_status(order_id : int, status : UpdateStatus, db : Session = Depends(get_db)):
+    order = db.query(Orders).filter(Orders.order_id == order_id).first()
+
+    if not order:
+        raise HTTPException(status_code=404, detail='order not found')
+    
+    allowed_status = [
+    'placed',
+    'preparing',
+    'out_for_delivery',
+    'delivered',
+    'cancelled']
+
+    if status.status not in allowed_status:
+        raise HTTPException(
+        status_code=400,
+        detail='invalid status'
+       )
+    order.status = status.status
+    db.commit()
+    db.refresh(order)
+
+    return {
+        'message' : 'order status updated',
+        'order_id' : order.order_id,
+        'status' : order.status
+    }   

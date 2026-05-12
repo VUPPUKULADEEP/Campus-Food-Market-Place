@@ -24,6 +24,8 @@ class UserResponse(BaseModel):
         'from_attributes': True
     }
 
+class UpdateStatus(BaseModel):
+    status : str
 
 class Login(BaseModel):
     reg_no : str

@@ -6,166 +6,210 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { set } from 'react-hook-form';
 
 
 const AdminSingleOrder = () => {
-const { id } = useParams()
-    const [order, setOrder] = useState(null)
-    useEffect(() => {
-        const fetchdata = async () => {
-            try {
-                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/admin/order/${localStorage.getItem('admin_id')}/${id}`);
-                console.log(res.data)
-                setOrder(res.data)
-            }
-            catch (error) {
-                alert('fail to fetch');
-                console.log(error)
-            }
-        }
-        fetchdata();
-    }, [])
+  const { id } = useParams()
+  const [order, setOrder] = useState(null)
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/admin/order/${localStorage.getItem('admin_id')}/${id}`);
+        console.log(res.data)
+        setOrder(res.data)
+      }
+      catch (error) {
+        alert('fail to fetch');
+        console.log(error)
+      }
+    }
+    fetchdata();
+  }, [])
+  const  updateStatus = async (status) => {
+    try {
+      console.log(status)
+      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/orders/order/${id}/status`, {
+        "status": status
+      })
+      console.log(res.data)
+      setOrder({...order, status: status})
+      alert('status updated successfully')
+    }
+    catch (error) {
+      alert('failed to update status');
+      console.log(error)
+    }
+  }
   return (
-<>
-  <AppBar />
+    <>
+      <AppBar />
 
-  <div className="container mt-4">
+      <div className="container mt-4">
 
-    {order && (
+        {order && (
 
-      <>
+          <>
 
-        {/* Top Section */}
-        <div className="row mb-4">
+            {/* Top Section */}
+            <div className="row mb-4">
 
-          {/* Customer Details */}
-          <div className="col-md-6">
+              {/* Customer Details */}
+              <div className="col-md-6">
 
-            <h5 className="mb-3">
-              Customer Details
-            </h5>
+                <h5 className="mb-3">
+                  Customer Details
+                </h5>
 
-            <p className="mb-1">
-              <strong>Name:</strong> {order.user.first_name}
-            </p>
+                <p className="mb-1">
+                  <strong>Name:</strong> {order.user.first_name}
+                </p>
 
-            <p className="mb-1">
-              <strong>Email:</strong> {order.user.email}
-            </p>
+                <p className="mb-1">
+                  <strong>Email:</strong> {order.user.email}
+                </p>
 
-            <p className="mb-1">
-              <strong>Mobile:</strong> {order.user.mobile_no}
-            </p>
+                <p className="mb-1">
+                  <strong>Mobile:</strong> {order.user.mobile_no}
+                </p>
 
-            <p className="mb-1">
-              <strong>Reg No:</strong> {order.user.reg_no}
-            </p>
+                <p className="mb-1">
+                  <strong>Reg No:</strong> {order.user.reg_no}
+                </p>
 
-          </div>
-
-
-          {/* Order Summary */}
-          <div className="col-md-6 text-md-end">
-
-            <h5 className="mb-3">
-              Order Summary
-            </h5>
-
-            <p className="mb-1">
-              <strong>Order ID:</strong> #{order.order_id}
-            </p>
-
-            <p className="mb-1">
-              <strong>Status:</strong>
-
-              <span className="badge bg-success ms-2">
-                {order.status}
-              </span>
-            </p>
-
-            <p className="mb-1">
-              <strong>Date:</strong>{" "}
-              {new Date(order.time_stamp).toLocaleString()}
-            </p>
-
-            <h4 className="text-success mt-3">
-              ₹ {order.total_amount}
-            </h4>
-
-          </div>
-
-        </div>
+              </div>
 
 
-        {/* Items Table */}
-        <table className="table table-hover align-middle text-center">
+              {/* Order Summary */}
+              <div className="col-md-6 text-md-end">
 
-          <thead className="table-dark">
+                <h5 className="mb-3">
+                  Order Summary
+                </h5>
 
-            <tr>
-              <th>Image</th>
-              <th>Item Name</th>
-              <th>Unit Price</th>
-              <th>Quantity</th>
-              <th>Subtotal</th>
-            </tr>
+                <p className="mb-1">
+                  <strong>Order ID:</strong> #{order.order_id}
+                </p>
 
-          </thead>
+                <p className="mb-1">
+                  <strong>Status:</strong>
 
-          <tbody>
+                  <span className="badge bg-success ms-2">
+                    {order.status}
+                  </span>
+                </p>
 
-            {order.items.map((item) => (
+                <p className="mb-1">
+                  <strong>Date:</strong>{" "}
+                  {new Date(order.time_stamp).toLocaleString()}
+                </p>
 
-              <tr key={item.item_id}>
+                <h4 className="text-success mt-3">
+                  ₹ {order.total_amount}
+                </h4>
 
-                <td>
+              </div>
 
-                  <img
-                    src={`${import.meta.env.VITE_BACKEND_URL}/${item.image_url}`}
-                    alt={item.item_name}
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      objectFit: "cover",
-                      borderRadius: "8px"
-                    }}
-                  />
+            </div>
 
-                </td>
 
-                <td>
-                  {item.item_name}
-                </td>
+            {/* Items Table */}
+            <table className="table table-hover align-middle text-center">
 
-                <td>
-                  ₹ {item.price}
-                </td>
+              <thead className="table-dark">
 
-                <td>
-                  {item.quantity}
-                </td>
+                <tr>
+                  <th>Image</th>
+                  <th>Item Name</th>
+                  <th>Unit Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
 
-                <td className="fw-bold text-success">
-                  ₹ {item.total}
-                </td>
+              </thead>
 
-              </tr>
+              <tbody>
 
-            ))}
+                {order.items.map((item) => (
 
-          </tbody>
+                  <tr key={item.item_id}>
 
-        </table>
+                    <td>
 
-      </>
+                      <img
+                        src={`${import.meta.env.VITE_BACKEND_URL}/${item.image_url}`}
+                        alt={item.item_name}
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          objectFit: "cover",
+                          borderRadius: "8px"
+                        }}
+                      />
 
-    )}
+                    </td>
 
-  </div>
+                    <td>
+                      {item.item_name}
+                    </td>
 
-</>
+                    <td>
+                      ₹ {item.price}
+                    </td>
+
+                    <td>
+                      {item.quantity}
+                    </td>
+
+                    <td className="fw-bold text-success">
+                      ₹ {item.total}
+                    </td>
+
+                  </tr>
+
+                ))}
+
+              </tbody>
+
+            </table>
+
+          </>
+
+        )}
+
+      
+      <div >
+        <h2>update status</h2>
+        <select
+          className="form-select w-50"
+          value={order ? order.status : ''}
+          onChange={(e) => updateStatus(e.target.value)}
+        >
+
+          <option value="placed">Placed</option>
+
+          <option value="preparing">
+            Preparing
+          </option>
+
+          <option value="out_for_delivery">
+            Out For Delivery
+          </option>
+
+          <option value="delivered">
+            Delivered
+          </option>
+
+          <option value="cancelled">
+            Cancelled
+          </option>
+
+        </select>
+      </div>
+      </div>
+    </>
   )
-  
+
 }
 
 export default AdminSingleOrder
