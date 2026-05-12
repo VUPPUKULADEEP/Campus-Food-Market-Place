@@ -38,8 +38,9 @@ const SingleProduct = () => {
   const addtocart = async () => {
     const user_id = localStorage.getItem('user_id')
     console.log(item)
+    let cart_details
     try {
-      let cart_details = await axios.post(`${apiurl}/carts/cart/${user_id}`)
+      cart_details = await axios.post(`${apiurl}/carts/cart/${user_id}`)
       console.log(cart_details.data)
       setCartId(cart_details.data.cart_id)
     }
@@ -47,9 +48,9 @@ const SingleProduct = () => {
       console.log(error)
     }
     try {
-      if (cartId) {
+      if (cart_details.data.cart_id) {
         const res = await axios.post(`${apiurl}/carts/cart/add/item`, {
-          "cart_id": cartId,
+          "cart_id": cart_details.data.cart_id,
           "item_id": item.item_id,
           "quantity": quantity
         });

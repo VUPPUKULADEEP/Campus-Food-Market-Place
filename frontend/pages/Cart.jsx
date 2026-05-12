@@ -2,9 +2,10 @@ import AppBar from '../components/AppBar'
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const apiurl = import.meta.env.VITE_BACKEND_URL;
   const user_id = localStorage.getItem('user_id')
   const [cartId, setCartId] = useState(null);
@@ -88,7 +89,7 @@ const Cart = () => {
                         <button
                           className="btn btn-warning btn-sm"
                           onClick={() =>
-                            navigate()
+                            navigate(`/single/${item.item_id}`)
                           }
                         >
                           Edit
