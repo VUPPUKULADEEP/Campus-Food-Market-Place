@@ -52,6 +52,9 @@ def create_order(order : OrderCreate, db : Session = Depends(get_db)):
     db.refresh(new_order)
 
     for cart_item in cart_items:
+        if cart_item.item.quantity < cart_item.quantity:
+            raise HTTPException(status_code=400, detail=f'item {cart_item.item.item_name} is out of stock')
+        cart_item.item.quantity -= cart_item.quantity
         order_detail = OrderDetails(
             order_id = new_order.order_id,
             item_id = cart_item.item_id,
