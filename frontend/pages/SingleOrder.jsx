@@ -25,27 +25,107 @@ const SingleOrder = () => {
         fetchdata();
     }, [])
   return (
-    <>
-    <AppBar/>
-    <div className='container mt-4'>
-        {order && (
-            <div className='card p-4'>
-                <h4>Order Id: {order.order_id}</h4>
-                <p>Total Amount: ₹ {order.total_amount}</p>
-                <p>Status: {order.status}</p>
-                <p>Order Date: {new Date(order.time_stamp).toLocaleDateString()}</p>
-                {order.items.map((item) => (
-                    <div key={item.item_id} className='border p-2 mb-2'>
-                        <h5>{item.item_name}</h5>
-                        <p>Price: ₹ {item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Subtotal: ₹ {item.price * item.quantity} </p>
-                    </div>
-                ))}
-            </div>  
-        )}
-    </div>
-    </>
+<>
+  <AppBar />
+
+  <div className="container mt-4">
+
+    {order && (
+
+      <>
+
+        
+        <div className="d-flex justify-content-between align-items-center mb-4">
+
+          <div>
+            <h3>
+              Order #{order.order_id}
+            </h3>
+
+            <p className="mb-1 text-muted">
+              {new Date(order.time_stamp).toLocaleString()}
+            </p>
+          </div>
+
+          <div className="text-end">
+
+            <h5 className="text-success">
+              ₹ {order.total_amount}
+            </h5>
+
+            <span className="badge bg-success">
+              {order.status}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        
+        <table className="table table-hover align-middle text-center">
+
+          <thead className="table-dark">
+
+            <tr>
+              <th>Item</th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {order.items.map((item) => (
+
+              <tr key={item.item_id}>
+
+                <td>
+                  <img
+                    src={`${import.meta.env.VITE_BACKEND_URL}/${item.image_url}`}
+                    alt={item.item_name}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      objectFit: "cover",
+                      borderRadius: "8px"
+                    }}
+                  />
+                </td>
+
+                <td>
+                  {item.item_name}
+                </td>
+
+                <td>
+                  ₹ {item.price}
+                </td>
+
+                <td>
+                  {item.quantity}
+                </td>
+
+                <td className="fw-bold text-success">
+                  ₹ {item.price * item.quantity}
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </>
+
+    )}
+
+  </div>
+</>
   )
 }
 

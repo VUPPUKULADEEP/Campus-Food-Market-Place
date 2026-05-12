@@ -94,7 +94,8 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
             'item_name' : i.item.item_name,
             'quantity' : i.quantity,
             'price' : i.price,
-            'total' : i.quantity * i.price
+            'total' : i.quantity * i.price,
+            'image_url' : i.item.image_url
         }
         items.append(item_data)
 

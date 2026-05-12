@@ -126,6 +126,7 @@ class OrderItem(BaseModel):
     quantity : int
     price : int
     total : int
+    image_url : Optional[str]
 
     model_config = {
         'from_attributes' : True
