@@ -139,6 +139,7 @@ class OrderSummary(BaseModel):
     items : List[OrderItem]
     total_amount : int
     admin_id : int
+    admin : AdminResponse
 
     model_config = {
         'from_attributes' : True

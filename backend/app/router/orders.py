@@ -105,7 +105,8 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
         'time_stamp' : order.time_stamp,
         'items' : items,
         'total_amount' : order.total_amount,
-        'admin_id' : order.admin_id
+        'admin_id' : order.admin_id,
+        'admin' : order.admin
     }
 
 

@@ -52,15 +52,16 @@ const Cart = () => {
       console.log(error)
     }
   }
-  const checkout = () => {
+  const checkout = async () => {
+    let response;
     try{
-      let response = axios.post(`${apiurl}/orders/order/create`,{
+      response = await axios.post(`${apiurl}/orders/order/create`,{
         "user_id": localStorage.getItem('user_id'),
         "cart_id": cartId,
       })
       console.log(response.data)
       alert('order placed successfully')
-      navigate('/orders')
+      navigate(`/order/${response.data.order_id}`)
       
     }
     catch(error){
