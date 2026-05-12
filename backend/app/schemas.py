@@ -19,7 +19,6 @@ class UserResponse(BaseModel):
     reg_no : str
     mobile_no : str
     email :EmailStr
-    password : str
 
     model_config = {
         'from_attributes': True
@@ -50,7 +49,6 @@ class AdminResponse(BaseModel):
     last_name : str
     email :EmailStr
     mobile_no : str
-    password : str
     is_open : bool
 
     model_config = {
