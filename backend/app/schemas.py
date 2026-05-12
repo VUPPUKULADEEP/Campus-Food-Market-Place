@@ -121,6 +121,7 @@ class OrderCreate(BaseModel):
     }
 
 class OrderItem(BaseModel):
+    item_id : int
     item_name :str
     quantity : int
     price : int

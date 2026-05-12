@@ -12,7 +12,7 @@ import AdminSignin from "../pages/Admin/AdminSignin"
 import AdminSignup from "../pages/Admin/AdminSignup"
 import AdminAddItem from "../pages/Admin/AdminAddItem"
 import AdminItemEdit from "../pages/Admin/AdminItemEdit"
-
+import SingleOrder from "../pages/SingleOrder"
 function App() {
   
 
@@ -26,6 +26,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/single/:id" element={<SingleProduct/>}/>
         <Route path="/profile" element={<Profile/>}/>
+        <Route path="/order/:id" element={<SingleOrder/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path='/test' element={<Test/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>

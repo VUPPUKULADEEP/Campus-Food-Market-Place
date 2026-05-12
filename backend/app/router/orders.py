@@ -90,6 +90,7 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
 
     for i in order_details:
         item_data = {
+            'item_id' : i.item_id,
             'item_name' : i.item.item_name,
             'quantity' : i.quantity,
             'price' : i.price,
