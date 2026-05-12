@@ -52,6 +52,22 @@ const Cart = () => {
       console.log(error)
     }
   }
+  const checkout = () => {
+    try{
+      let response = axios.post(`${apiurl}/orders/order/create`,{
+        "user_id": localStorage.getItem('user_id'),
+        "cart_id": cartId,
+      })
+      console.log(response.data)
+      alert('order placed successfully')
+      navigate('/orders')
+      
+    }
+    catch(error){
+      console.log(error)
+      alert('failed to place order')
+    }
+  }
 
   const clearcart = async () => {
     try {
@@ -70,7 +86,7 @@ const Cart = () => {
           <h3 className='mb-2'>Cart Items</h3>
           <div>
           <button className='btn btn-danger m-2' onClick={() => {clearcart()}}>Clear Cart</button>
-          <button className='btn btn-success' onClick={() => { }}>Checkout</button>
+          <button className='btn btn-success' onClick={() => {checkout()}}>Checkout</button>
           </div>
       </div>
     <div className="container mt-4">
@@ -112,7 +128,7 @@ const Cart = () => {
                     <td>{item.quantity}</td>
 
                     <td>₹ {item.quantity * item.item.price}</td>
-                        
+
                     <td>
                       <div className="d-flex justify-content-center gap-2">
 
