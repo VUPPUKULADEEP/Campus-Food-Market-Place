@@ -44,7 +44,8 @@ const Cart = () => {
   const deleteitem = async (item_id) => {
     try {
       const res = await axios.delete(`${apiurl}/carts/cart/${cartId}/item/${item_id}`);
-      console.log(res.data)
+      console.log(res.data.message)
+      alert(res.data.message)
       setItems(items.filter((item) => item.item_id !== item_id))
     }
     catch (error) {
