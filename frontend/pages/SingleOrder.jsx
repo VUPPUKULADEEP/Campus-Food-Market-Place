@@ -31,10 +31,7 @@ const SingleOrder = () => {
   <div className="container mt-4">
 
     {order && (
-
       <>
-
-        
         <div className="d-flex justify-content-between align-items-center mb-4">
 
           <div>
