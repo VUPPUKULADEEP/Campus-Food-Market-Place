@@ -164,6 +164,20 @@ class AdminOrderList(BaseModel):
     total_amount : int
     admin_id : int
     user : UserResponse
+    items: List[OrderItem]
+    
+    model_config = {
+        'from_attributes' : True
+    }
+
+class AdminOrderSimple(BaseModel):
+    user_id : int
+    order_id : int
+    status : str
+    time_stamp : datetime
+    total_amount : int
+    admin_id : int
+    user : UserResponse
     
     model_config = {
         'from_attributes' : True

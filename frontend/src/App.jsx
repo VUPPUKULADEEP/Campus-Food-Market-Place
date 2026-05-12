@@ -13,9 +13,11 @@ import AdminSignup from "../pages/Admin/AdminSignup"
 import AdminAddItem from "../pages/Admin/AdminAddItem"
 import AdminItemEdit from "../pages/Admin/AdminItemEdit"
 import SingleOrder from "../pages/SingleOrder"
-function App() {
-  
+import AdminSingleOrder from "../pages/Admin/AdminSingleOrder"
 
+
+
+function App() {
   return (
     <>
     <BrowserRouter>
@@ -30,6 +32,7 @@ function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path='/test' element={<Test/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>
+        <Route path="/admin/order/:id" element={<AdminSingleOrder/>}/>
         <Route path='/admin/signin' element={<AdminSignin/>}/>
         <Route path="/admin/signup" element={<AdminSignup/>}/>
         <Route path="/admin/additem" element={<AdminAddItem/>}/>

@@ -2,7 +2,7 @@ from fastapi import HTTPException, APIRouter
 from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList
+from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList, AdminOrderSimple
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 
 
@@ -127,11 +127,45 @@ def delete_order(order_id : int, db : Session = Depends(get_db)):
     
     return {'message' : 'order deleted '}
 
-@router.get('/admin/orders/{admin_id}' , response_model = list[AdminOrderList])
+@router.get('/admin/orders/{admin_id}' , response_model = list[AdminOrderSimple])
 def orders_by_admin(admin_id : int, db : Session = Depends(get_db)):
     orders = db.query(Orders).filter(Orders.admin_id == admin_id).all()
 
 
     return orders
+
+
+
+@router.get('/admin/order/{admin_id}/{order_id}' , response_model = AdminOrderList)
+def order_by_admin(admin_id : int, order_id : int, db : Session = Depends(get_db)):
+    order = db.query(Orders).filter(Orders.admin_id == admin_id, Orders.order_id == order_id).first()
+    order_details = db.query(OrderDetails).filter(OrderDetails.order_id == order_id).all()
+
+    if not order_details:
+        raise HTTPException(status_code=404, detail='no order details found')
+
+    items = []
+
+    for i in order_details:
+        item_data = {
+            'item_id' : i.item_id,
+            'item_name' : i.item.item_name,
+            'quantity' : i.quantity,
+            'price' : i.price,
+            'total' : i.quantity * i.price,
+            'image_url' : i.item.image_url
+        }
+        items.append(item_data)
+
+    return {
+        'user_id' : order.user_id,
+        'order_id' : order.order_id,
+        'status' : order.status,
+        'time_stamp' : order.time_stamp,
+        'items' : items,
+        'user': order.user,
+        'total_amount' : order.total_amount,
+        'admin_id' : order.admin_id
+    }
 
 
