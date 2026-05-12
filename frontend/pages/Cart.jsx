@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -39,12 +41,36 @@ const Cart = () => {
     }
     fetchcart();
   }, [])
+  const deleteitem = async (item_id) => {
+    try {
+      const res = await axios.delete(`${apiurl}/carts/cart/${cartId}/item/${item_id}`);
+      console.log(res.data)
+      setItems(items.filter((item) => item.item_id !== item_id))
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  const clearcart = async () => {
+    try {
+      const res = await axios.delete(`${apiurl}/carts/cart/${cartId}`);
+      console.log(res.data)
+      setItems([])
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
     <AppBar />
-    <div className='header d-flex flex-row justify-content-center mt-2'>
+    <div className='header d-flex flex-row justify-content-between mt-2'>
           <h3 className='mb-2'>Cart Items</h3>
-          
+          <div>
+          <button className='btn btn-danger m-2' onClick={() => {clearcart()}}>Clear Cart</button>
+          <button className='btn btn-success' onClick={() => { }}>Checkout</button>
+          </div>
       </div>
     <div className="container mt-4">
           <table className="table table-bordered table-hover align-middle text-center">
@@ -97,6 +123,7 @@ const Cart = () => {
 
                         <button
                           className="btn btn-danger btn-sm"
+                          onClick = {() => {deleteitem(item.item_id)}}
                         >
                           Delete
                         </button>
