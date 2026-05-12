@@ -80,8 +80,9 @@ const Cart = () => {
               <tr>
                 <th>Item</th>
                 <th>Item Name</th>
-                <th>Price</th>
+                <th>Unit Price </th>
                 <th>Quantity</th>
+                <th>Total Price</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -110,6 +111,8 @@ const Cart = () => {
 
                     <td>{item.quantity}</td>
 
+                    <td>₹ {item.quantity * item.item.price}</td>
+                        
                     <td>
                       <div className="d-flex justify-content-center gap-2">
 
