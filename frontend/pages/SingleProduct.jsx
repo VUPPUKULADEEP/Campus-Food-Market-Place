@@ -10,8 +10,10 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SingleProduct = () => {
+  const navigate = useNavigate();
   const [cartId, setCartId] = useState(null);
   const apiurl = import.meta.env.VITE_BACKEND_URL;
   const { id } = useParams()
@@ -55,6 +57,8 @@ const SingleProduct = () => {
           "quantity": quantity
         });
         console.log(res.data)
+        navigate(-1);
+        
       }
     }
     catch (error) {
