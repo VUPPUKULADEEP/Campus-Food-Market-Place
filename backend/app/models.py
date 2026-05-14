@@ -28,7 +28,7 @@ class Admins(base):
     first_name = Column(String(10), nullable=False)
     last_name = Column(String(10), nullable=True)
     email = Column(String(30), unique = True, nullable=False)
-    password = Column(String(20), nullable=False)
+    password = Column(String(100), nullable=False)
     mobile_no = Column(String(10), unique=True, nullable= False)
     is_open = Column(Boolean, default=False)
 
