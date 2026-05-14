@@ -15,7 +15,7 @@ class Users(base):
     reg_no = Column(String(10), unique=True, nullable=False)
     email = Column(String(30), unique = True, nullable=False)
     mobile_no = Column(String(10), unique=True, nullable= False)
-    password = Column(String(20), nullable=False)
+    password = Column(String(100), nullable=False)
 
     orders = relationship('Orders', back_populates='user')
 
