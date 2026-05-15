@@ -5,7 +5,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from .models import Users
 from .schemas import UserCreate,UserResponse
-from app.router import users, orders, admin, items, cart
+from app.router import users, orders, admin, items, cart, auth
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title='Order Food')
@@ -27,4 +27,5 @@ app.include_router(orders.router, prefix='/orders', tags=["orders"])
 app.include_router(admin.router, prefix='/admins', tags=['admin'])
 app.include_router(cart.router, prefix='/carts', tags=['cart'])
 app.include_router(items.router, prefix='/items', tags=['items'])
+app.include_router(auth.router, prefix='/auth', tags=['/auth'])
 

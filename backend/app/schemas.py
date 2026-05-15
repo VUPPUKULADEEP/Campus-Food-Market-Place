@@ -184,5 +184,6 @@ class AdminOrderSimple(BaseModel):
         'from_attributes' : True
     }
 
-class TokenResponse(BaseModel):
-    token : str
+class RefreshTokenRequest(BaseModel):
+    refresh_token : str
+

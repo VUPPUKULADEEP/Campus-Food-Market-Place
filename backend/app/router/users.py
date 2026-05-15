@@ -3,7 +3,7 @@ from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.models import Users
-from app.schemas import UserCreate,UserResponse,Login, TokenResponse
+from app.schemas import UserCreate,UserResponse,Login
 from app.router.auth import change_to_hash, verify_password, create_token
 from datetime import timedelta
 
@@ -59,13 +59,13 @@ def login(user: Login, db:Session = Depends(get_db)):
         if not verify_password( user.password, u.password):
             raise HTTPException(status_code=400, detail='password wrong')
         token = create_token({
-            'id': u.user_id,
+            'sub': str(u.user_id),
             'reg_no' : u.reg_no,
             'role' : 'user'
         },
         token_type='access')
         refresh_token = create_token({
-            'id': u.user_id,
+            'sub': str(u.user_id),
             'reg_no' : u.reg_no,
             'role' : 'user'
         },
