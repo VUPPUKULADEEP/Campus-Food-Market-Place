@@ -183,3 +183,6 @@ class AdminOrderSimple(BaseModel):
     model_config = {
         'from_attributes' : True
     }
+
+class TokenResponse(BaseModel):
+    token : str

@@ -3,8 +3,10 @@ from app.database import get_db
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.models import Users
-from app.schemas import UserCreate,UserResponse,Login
-from app.router.auth import change_to_hash, verify_password
+from app.schemas import UserCreate,UserResponse,Login, TokenResponse
+from app.router.auth import change_to_hash, verify_password, create_token
+from datetime import timedelta
+
 
 router = APIRouter()
 
@@ -46,10 +48,9 @@ def get_user_by_id(user_id : int, db:Session = Depends(get_db)):
     user = db.query(Users).filter(Users.user_id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail='user not found')
-
     return user
 
-@router.post('/login', response_model=UserResponse)
+@router.post('/login')
 def login(user: Login, db:Session = Depends(get_db)):
     try:
         u = db.query(Users).filter(Users.reg_no == user.reg_no).first()
@@ -57,12 +58,29 @@ def login(user: Login, db:Session = Depends(get_db)):
             raise HTTPException(status_code=401, detail='wrong credintials')
         if not verify_password( user.password, u.password):
             raise HTTPException(status_code=400, detail='password wrong')
-        return u
+        token = create_token({
+            'id': u.user_id,
+            'reg_no' : u.reg_no,
+            'role' : 'user'
+        },
+        token_type='access')
+        refresh_token = create_token({
+            'id': u.user_id,
+            'reg_no' : u.reg_no,
+            'role' : 'user'
+        },
+        token_type='refresh',
+        expiry= timedelta(days=1))
+        return {
+            'access_token' : token,
+            'token_type' : 'bearer',
+            'refresh_token' : refresh_token
+        }
+    
     except HTTPException as e:
-        raise HTTPException(status_code=401, detail='invalid user')
+        raise e
     except Exception as e:
-        print(e)
-        raise Exception({'message' : 'unknown exception'} )
+        raise e
 
 
 
