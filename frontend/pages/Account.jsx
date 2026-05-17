@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './account.css'
 import axios from 'axios'
-
+import api from '../src/api/api'
 
 const Account = () => {
     const [data, setData] = useState(null);
@@ -12,13 +12,14 @@ const Account = () => {
     const token = localStorage.getItem('access_token')
     let response;
     try {
-      response = await axios.get(`${apiurl}/users/myprofile`,
-        {
-          headers:{
-            Authorization : `Bearer ${token}`
-          }
-        }
-      );
+      // response = await axios.get(`${apiurl}/users/myprofile`,
+      //   {
+      //     headers:{
+      //       Authorization : `Bearer ${token}`
+      //     }
+      //   }
+      // );
+      response = await api.get('/users/myprofile')
 
       console.log(response.data)
       setData(response.data)
