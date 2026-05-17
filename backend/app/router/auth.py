@@ -65,7 +65,7 @@ def resend_access_token(data : RefreshTokenRequest):
     new_access_token = create_token(
         user_data={
             'sub': payload.get('sub'),
-            'reg_no' : payload.get('reg_no'),
+            'username' : payload.get('username'),
             'role' : payload.get('role')
         },
         token_type= 'access'
