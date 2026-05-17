@@ -16,7 +16,9 @@ const Signin = () => {
     try {
       response = await axios.post(`${apiurl}/users/login`, userData);
       console.log(response)
-      localStorage.setItem('user_id', response.data['user_id'])
+      localStorage.setItem('access_token', response.data['access_token'])
+      localStorage.setItem('refresh_token', response.data['refresh_token'])
+      localStorage.setItem('token_type', response.data['token_type'] )
       navigate('/');
     }
     catch (error) {
