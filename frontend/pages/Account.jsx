@@ -12,13 +12,6 @@ const Account = () => {
     const token = localStorage.getItem('access_token')
     let response;
     try {
-      // response = await axios.get(`${apiurl}/users/myprofile`,
-      //   {
-      //     headers:{
-      //       Authorization : `Bearer ${token}`
-      //     }
-      //   }
-      // );
       response = await api.get('/users/myprofile')
 
       console.log(response.data)
