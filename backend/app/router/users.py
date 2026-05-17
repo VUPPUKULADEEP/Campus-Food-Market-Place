@@ -68,8 +68,6 @@ def login(
     db:Session = Depends(get_db)
 ):
     try:
-        print(user.username)
-        print(user.password)
         u = db.query(Users).filter(Users.username == user.username).first()
         if not u:
             raise HTTPException(status_code=401, detail='wrong credintials')
