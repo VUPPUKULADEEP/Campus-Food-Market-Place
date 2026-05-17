@@ -56,11 +56,7 @@ def myprofile(
     current_user = Depends(get_current_user),
     db : Session = Depends(get_db)
 ):
-    user_id = int(current_user.get("sub"))
-    user = db.query(Users).filter(Users.user_id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail='user not found')
-    return user
+    return current_user
 
 @router.post('/login')
 def login(

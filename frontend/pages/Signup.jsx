@@ -46,12 +46,12 @@ const Signup = () => {
                         {errors.first_name && <p class='error'>{errors.first_name.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
-                        <input type="text" className="form-control" id="reg_no" placeholder='Registration no'
-                            {...register('reg_no')} onChange={(e) =>{
+                        <input type="text" className="form-control" id="username" placeholder='Registration no'
+                            {...register('username')} onChange={(e) =>{
                                 e.target.value = e.target.value.toUpperCase();
                             }} />
-                        <label htmlFor="reg_no">Registration no</label>
-                        {errors.reg_no && <p class='error'>{errors.reg_no.message}</p>}
+                        <label htmlFor="username">Registration no</label>
+                        {errors.username && <p class='error'>{errors.username.message}</p>}
                     </div>
                     <div className="form-floating mb-3 col-12">
                         <input type="string" className="form-control" id="number" placeholder='mobile number'

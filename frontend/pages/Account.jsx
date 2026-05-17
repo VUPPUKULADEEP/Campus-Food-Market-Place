@@ -41,7 +41,7 @@ const Account = () => {
     <h4>Mobile number <a href="#">Edit</a></h4>
     <input type="string" value={data?.mobile_no || 'xxxxxxxxxx'} readOnly />
     <h4>Registration No: <a href="#">Edit</a></h4> 
-    <input type="text"  value={data?.reg_no || 'xxxxxxxxxx'} readOnly />
+    <input type="text"  value={data?.username || 'xxxxxxxxxx'} readOnly />
   </div>
     <div >
       
