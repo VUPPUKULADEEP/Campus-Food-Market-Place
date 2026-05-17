@@ -12,7 +12,7 @@ class Users(base):
 
     user_id = Column(Integer, primary_key=True)
     first_name = Column(String(10), nullable=False)
-    reg_no = Column(String(10), unique=True, nullable=False)
+    username = Column(String(10), unique=True, nullable=False)
     email = Column(String(30), unique = True, nullable=False)
     mobile_no = Column(String(10), unique=True, nullable= False)
     password = Column(String(100), nullable=False)

@@ -10,11 +10,18 @@ const Signin = () => {
 
   const { register, formState: { errors }, handleSubmit } = useForm()
   const onSubmit = async (userData) => {
+    const formdata = new URLSearchParams()
+    formdata.append("username", userData.username);
+    formdata.append("password", userData.password);
     const apiurl = import.meta.env.VITE_BACKEND_URL;
-    console.log(userData)
+    console.log(formdata)
     let response;
     try {
-      response = await axios.post(`${apiurl}/users/login`, userData);
+      response = await axios.post(`${apiurl}/users/login`, formdata, {
+        headers:{
+          "Content-Type" : "application/x-www-form-urlencoded"
+        }
+      });
       console.log(response)
       localStorage.setItem('access_token', response.data['access_token'])
       localStorage.setItem('refresh_token', response.data['refresh_token'])
@@ -38,12 +45,12 @@ const Signin = () => {
           <h3>Login</h3>
 
           <div className="form-floating mb-3 col-12">
-            <input type="text" className="form-control" id="reg_no" placeholder="reg no" {...register('reg_no')}
+            <input type="text" className="form-control" id="username" placeholder="reg no" {...register('username')}
               onChange={(e) => {
                 e.target.value = e.target.value.toUpperCase();
               }} />
-            <label htmlFor="reg_no">Registration no</label>
-            {errors.reg_no && <p className='error'>{errors.reg_no.message}</p>}
+            <label htmlFor="username">Registration no</label>
+            {errors.username && <p className='error'>{errors.username.message}</p>}
           </div>
           <div className="form-floating mb-3 col-12">
             <input type="password" className="form-control" id="password" placeholder="xxxxxxxxxx" {...register('password')} />

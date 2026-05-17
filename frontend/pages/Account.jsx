@@ -9,9 +9,17 @@ const Account = () => {
   useEffect(() =>{
     const fetchdata = async () => {
     const apiurl = import.meta.env.VITE_BACKEND_URL;
+    const token = localStorage.getItem('access_token')
     let response;
     try {
-      response = await axios.get(`${apiurl}/users/by/${localStorage.getItem('user_id')}`);
+      response = await axios.get(`${apiurl}/users/myprofile`,
+        {
+          headers:{
+            Authorization : `Bearer ${token}`
+          }
+        }
+      );
+
       console.log(response.data)
       setData(response.data)
     }
@@ -31,7 +39,7 @@ const Account = () => {
     <h4>Email address <a href="#">Edit</a></h4>
     <input type="email" value={data?.email || 'xxxxxx@email.com'} readOnly />
     <h4>Mobile number <a href="#">Edit</a></h4>
-    <input type="number" value={data?.mobile_no || 'xxxxxxxxxx'} readOnly />
+    <input type="string" value={data?.mobile_no || 'xxxxxxxxxx'} readOnly />
     <h4>Registration No: <a href="#">Edit</a></h4> 
     <input type="text"  value={data?.reg_no || 'xxxxxxxxxx'} readOnly />
   </div>

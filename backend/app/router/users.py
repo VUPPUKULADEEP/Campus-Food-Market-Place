@@ -6,7 +6,8 @@ from app.models import Users
 from app.schemas import UserCreate,UserResponse,Login
 from app.router.auth import change_to_hash, verify_password, create_token
 from datetime import timedelta
-
+from app.dependency import get_current_user
+from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter()
 
@@ -14,7 +15,7 @@ router = APIRouter()
 @router.post('/create', response_model=UserResponse)
 def create_user( user:UserCreate,db: Session = Depends(get_db)):
     existing_user = db.query(Users).filter(
-        (Users.reg_no == user.reg_no) |
+        (Users.username == user.username) |
         (Users.email == user.email) |
         (Users.mobile_no == user.mobile_no)
     ).first()
@@ -25,7 +26,7 @@ def create_user( user:UserCreate,db: Session = Depends(get_db)):
         hashed_password = change_to_hash(user.password)
         user = Users(
             first_name = user.first_name,
-            reg_no = user.reg_no,
+            username = user.username,
             email = user.email,
             mobile_no = user.mobile_no,
             password = hashed_password,
@@ -50,23 +51,39 @@ def get_user_by_id(user_id : int, db:Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail='user not found')
     return user
 
+@router.get('/myprofile', response_model=UserResponse)
+def myprofile(
+    current_user = Depends(get_current_user),
+    db : Session = Depends(get_db)
+):
+    user_id = int(current_user.get("sub"))
+    user = db.query(Users).filter(Users.user_id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail='user not found')
+    return user
+
 @router.post('/login')
-def login(user: Login, db:Session = Depends(get_db)):
+def login(
+    user: OAuth2PasswordRequestForm = Depends(),      
+    db:Session = Depends(get_db)
+):
     try:
-        u = db.query(Users).filter(Users.reg_no == user.reg_no).first()
+        print(user.username)
+        print(user.password)
+        u = db.query(Users).filter(Users.username == user.username).first()
         if not u:
             raise HTTPException(status_code=401, detail='wrong credintials')
         if not verify_password( user.password, u.password):
             raise HTTPException(status_code=400, detail='password wrong')
         token = create_token({
             'sub': str(u.user_id),
-            'reg_no' : u.reg_no,
+            'username' : u.username,
             'role' : 'user'
         },
         token_type='access')
         refresh_token = create_token({
             'sub': str(u.user_id),
-            'reg_no' : u.reg_no,
+            'username' : u.username,
             'role' : 'user'
         },
         token_type='refresh',
