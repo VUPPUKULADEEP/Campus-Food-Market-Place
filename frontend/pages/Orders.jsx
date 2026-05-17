@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AppBar from '../components/AppBar'
-
+import api from '../src/api/api'
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Orders = () => {
   useEffect(()=>{
     const fetchorders = async () => {
       try{
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/user/${localStorage.getItem('user_id')}`);
+        const res = await api.get(`/orders/user/`);
         console.log(res.data)
         setOrders(res.data)
       }

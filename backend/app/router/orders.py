@@ -4,7 +4,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList, AdminOrderSimple, UpdateStatus
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
-
+from app.dependency import get_current_user
 
 router = APIRouter()
 
@@ -26,7 +26,9 @@ def get_order_by_id( db : Session = Depends(get_db)):
 
 
 @router.post('/order/create')
-def create_order(order : OrderCreate, db : Session = Depends(get_db)):
+def create_order(order : OrderCreate,
+                 user = Depends(get_current_user),
+                 db : Session = Depends(get_db)):
     cart = db.query(Cart).filter(Cart.cart_id == order.cart_id).first()
     if not cart:
         raise HTTPException(status_code=404, detail='cart not found')
@@ -43,7 +45,7 @@ def create_order(order : OrderCreate, db : Session = Depends(get_db)):
     
 
     new_order = Orders(
-        user_id = cart.user_id,
+        user_id = user.user_id,
         total_amount = total,
         admin_id = cart_admin_id
     )
@@ -113,9 +115,11 @@ def order_details(order_id : int, db : Session = Depends(get_db)):
     }
 
 
-@router.get('/user/{user_id}', response_model=list[OrderList])
-def orders_by_user(user_id : int, db : Session = Depends(get_db)):
-    orders = db.query(Orders).filter(Orders.user_id == user_id).all()
+@router.get('/user/', response_model=list[OrderList])
+def orders_by_user(
+                   user = Depends(get_current_user),
+                   db : Session = Depends(get_db)):
+    orders = db.query(Orders).filter(Orders.user_id == user.user_id).all()
 
     return orders
 

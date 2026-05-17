@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../src/api/api'
 
 const SingleProduct = () => {
   const navigate = useNavigate();
@@ -38,11 +39,10 @@ const SingleProduct = () => {
   }, [])
 
   const addtocart = async () => {
-    const user_id = localStorage.getItem('user_id')
     console.log(item)
     let cart_details
     try {
-      cart_details = await axios.post(`${apiurl}/carts/cart/${user_id}`)
+      cart_details = await api.post(`/carts/cart/by/user`)
       console.log(cart_details.data)
       setCartId(cart_details.data.cart_id)
     }
@@ -51,7 +51,7 @@ const SingleProduct = () => {
     }
     try {
       if (cart_details.data.cart_id) {
-        const res = await axios.post(`${apiurl}/carts/cart/add/item`, {
+        const res = await api.post(`${apiurl}/carts/cart/add/item`, {
           "cart_id": cart_details.data.cart_id,
           "item_id": item.item_id,
           "quantity": quantity

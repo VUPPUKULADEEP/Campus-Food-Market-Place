@@ -112,7 +112,6 @@ class CartResponse(BaseModel):
 
 
 class OrderCreate(BaseModel):
-    user_id : int
     cart_id : int
 
 

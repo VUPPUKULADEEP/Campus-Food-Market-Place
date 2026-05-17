@@ -4,12 +4,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import api from '../src/api/api'
 
 const Cart = () => {
   const navigate = useNavigate();
   const apiurl = import.meta.env.VITE_BACKEND_URL;
-  const user_id = localStorage.getItem('user_id')
   const [cartId, setCartId] = useState(null);
   const [items, setItems] = useState([])
   useEffect(() => {
@@ -17,7 +16,7 @@ const Cart = () => {
       let cart_details
       let cart_id
       try {
-        cart_details = await axios.post(`${apiurl}/carts/cart/${user_id}`)
+        cart_details = await api.post(`/carts/cart/by/user`)
         console.log(cart_details.data)
         cart_id = cart_details.data.cart_id
         setCartId(cart_id)
@@ -29,7 +28,7 @@ const Cart = () => {
       console.log(cartId)
       try {
         if (cart_id) {
-          const res = await axios.get(`${apiurl}/carts/cart_items/${cart_id}`);
+          const res = await api.get(`/carts/cart_items/${cart_id}`);
           console.log(res.data)
           setItems(res.data)
         }
@@ -43,7 +42,7 @@ const Cart = () => {
   }, [])
   const deleteitem = async (item_id) => {
     try {
-      const res = await axios.delete(`${apiurl}/carts/cart/${cartId}/item/${item_id}`);
+      const res = await api.delete(`/carts/cart/${cartId}/item/${item_id}`);
       console.log(res.data.message)
       alert(res.data.message)
       setItems(items.filter((item) => item.item_id !== item_id))
@@ -55,8 +54,7 @@ const Cart = () => {
   const checkout = async () => {
     let response;
     try{
-      response = await axios.post(`${apiurl}/orders/order/create`,{
-        "user_id": localStorage.getItem('user_id'),
+      response = await api.post(`/orders/order/create`,{
         "cart_id": cartId,
       })
       console.log(response.data)

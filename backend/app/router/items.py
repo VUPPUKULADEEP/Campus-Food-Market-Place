@@ -38,6 +38,8 @@ def admin_item_by_id(admin_id : int, db:Session = Depends(get_db)):
 @router.get('/item/{item_id}', response_model = ItemResponse)
 def item_by_id(item_id : int, db: Session = Depends(get_db)):
     item = db.query(Items).filter(Items.item_id == item_id).first()
+    if not item:
+        raise HTTPException(status_code=404, detail='item not found')
     return item
 
 @router.put('/item/{item_id}' , response_model= ItemResponse)
