@@ -4,17 +4,20 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from app.models import Cart, CartItems, Items
 from app.schemas import CartAddItem, CartResponse
+from app.dependency import get_current_user
 
 router = APIRouter()
 
-@router.post('/cart/{user_id}')
-def create_cart(user_id : int, db : Session = Depends(get_db)):
-    cart = db.query(Cart).filter(Cart.user_id == user_id).first()
+@router.post('/cart/by/user')
+def create_cart(
+            user = Depends(get_current_user),
+            db : Session = Depends(get_db)):
+    cart = db.query(Cart).filter(Cart.user_id == user.user_id).first()
 
     if cart : 
         return cart
     
-    new_cart = Cart(user_id = user_id)
+    new_cart = Cart(user_id = user.user_id)
     db.add(new_cart)
     db.commit()
     db.refresh(new_cart)
@@ -22,8 +25,10 @@ def create_cart(user_id : int, db : Session = Depends(get_db)):
     return new_cart
 
 
-@router.post('/cart/add/item', response_model=CartResponse)
-def add_item( item : CartAddItem, db: Session = Depends(get_db)):
+@router.post('/cart/add/item',response_model=CartResponse)
+def add_item( item : CartAddItem,
+             user = Depends(get_current_user),
+             db: Session = Depends(get_db)):
     # if previously existing item then update quantity
     existing_cart_item = db.query(CartItems).filter(CartItems.cart_id == item.cart_id , CartItems.item_id == item.item_id ).first()
     if existing_cart_item :
@@ -75,7 +80,9 @@ def add_item( item : CartAddItem, db: Session = Depends(get_db)):
     return cart_item
 
 @router.get('/cart_items/{cart_id}', response_model=list[CartResponse])
-def cart_items(cart_id : int, db: Session = Depends(get_db)):
+def cart_items(cart_id : int,
+               user = Depends(get_current_user),
+               db: Session = Depends(get_db)):
     cart_items = db.query(CartItems).filter(CartItems.cart_id == cart_id).all()
     if not cart_items:
         return []
