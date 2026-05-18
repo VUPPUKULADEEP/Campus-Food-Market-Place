@@ -126,7 +126,9 @@ def orders_by_user(
     return orders
 
 @router.delete('/order/{order_id}/delete')
-def delete_order(order_id : int, db : Session = Depends(get_db)):
+def delete_order(order_id : int,
+                 user = Depends(get_current_user),
+                 db : Session = Depends(get_db)):
     order = db.query(Orders).filter(Orders.order_id == order_id).first()
 
     if not order:
