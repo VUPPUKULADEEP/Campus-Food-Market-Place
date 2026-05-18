@@ -5,22 +5,25 @@ import Rating from '@mui/material/Rating'
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
 
-const Card = ({data}) => {
+const Card = ({ data }) => {
   const apiurl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const short_description = `${data.item_name} available at ${data.admin.first_name} for ₹${data.price}`
   return (
     <>
-    
-    <div  className={`card`}>
-  <img src={`${apiurl}/${data.image_url}`} className="card-img-top" alt="not found"/>
-  <div className="card-body">
-    <h5 className="card-title">
-      {data.item_name}
-    </h5>
-    <p className="card-text">{short_description}</p>
-    <button className="btn btn-primary" onClick={()=>{navigate(`/single/${data.item_id}`, {state : {data:data}} )}}>See Details</button>
-    {/* <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
+
+      <div className={`card`}>
+        <img style={{
+          aspectRatio: "1 / 1",
+          objectFit: "cover"
+        }} src={`${apiurl}/${data.image_url}`} className="card-img-top" alt="not found" />
+        <div className="card-body">
+          <h5 className="card-title">
+            {data.item_name}
+          </h5>
+          <p className="card-text">{short_description}</p>
+          <button className="btn btn-primary" onClick={() => { navigate(`/single/${data.item_id}`, { state: { data: data } }) }}>See Details</button>
+          {/* <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
             <Rating
               name="text-feedback"
               value={value}
@@ -30,8 +33,8 @@ const Card = ({data}) => {
             />
             <Box sx={{ ml: 2 }}>{value}</Box>
           </Box> */}
-  </div>
-</div>
+        </div>
+      </div>
 
     </>
   )
