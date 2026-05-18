@@ -9,6 +9,10 @@ from fastapi.security import OAuth2PasswordRequestForm
 from app.router.auth import create_token
 from datetime import timedelta
 from app.admin_dependency import get_current_admin
+
+
+
+
 router = APIRouter()
 
 
@@ -81,7 +85,9 @@ def myprofile(
     return current_admin
 
 @router.delete('/delete/admin')
-def delete_user(admin_id : int, db:Session = Depends(get_db)):
+def delete_user(admin_id : int,
+                admin = Depends(get_current_admin),
+                db:Session = Depends(get_db)):
     
     admin = db.query(Admins).filter(Admins.admin_id == admin_id).first()
     if not admin:

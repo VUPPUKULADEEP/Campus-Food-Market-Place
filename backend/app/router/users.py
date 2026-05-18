@@ -100,6 +100,7 @@ def delete_user(user_id : int,
                 user = Depends(get_current_user),
                 db:Session = Depends(get_db)
 ):
+    user = db.query(Users).filter(Users.user_id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail='no user found')
     db.delete(user)
