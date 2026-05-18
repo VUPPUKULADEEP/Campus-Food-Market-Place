@@ -61,7 +61,6 @@ class AdminResponse(BaseModel):
 class ItemsCreate(BaseModel):
     item_name : str
     quantity : int
-    admin_id : int
     price : int
     
 

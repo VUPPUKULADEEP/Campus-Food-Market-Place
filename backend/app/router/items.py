@@ -8,15 +8,22 @@ from fastapi import UploadFile, File
 import shutil
 import uuid
 import os
-
+from app.admin_dependency import get_current_admin
 
 router = APIRouter()
 
 
 @router.post('/create', response_model=ItemResponse)
-def create_user( item:ItemsCreate, db: Session = Depends(get_db)):
+def create_user( item:ItemsCreate,
+                admin = Depends(get_current_admin),
+                db: Session = Depends(get_db)):
     try:
-        item = Items(**item.dict())
+        item = Items(
+            item_name = item.item_name,
+            quantity = item.quantity,
+            admin_id = admin.admin_id,
+            price = item.price
+        )
         db.add(item)
         db.commit()
         db.refresh(item)
@@ -30,9 +37,10 @@ def get_items(db: Session = Depends(get_db)):
     items = db.query(Items).all()
     return items
 
-@router.get('/admin/{admin_id}', response_model = list[ItemResponse])
-def admin_item_by_id(admin_id : int, db:Session = Depends(get_db)):
-    items = db.query(Items).filter(Items.admin_id == admin_id).all()
+@router.get('/admin', response_model = list[ItemResponse])
+def admin_item_by_id(admin = Depends(get_current_admin),
+                     db:Session = Depends(get_db)):
+    items = db.query(Items).filter(Items.admin_id == admin.admin_id).all()
     return items
 
 @router.get('/item/{item_id}', response_model = ItemResponse)
@@ -43,7 +51,9 @@ def item_by_id(item_id : int, db: Session = Depends(get_db)):
     return item
 
 @router.put('/item/{item_id}' , response_model= ItemResponse)
-def put_item(update_item : ItemUpdate, item_id : int, db:Session = Depends(get_db)):
+def put_item(update_item : ItemUpdate, item_id : int,
+             admin = Depends(get_current_admin),
+             db:Session = Depends(get_db)):
     item = db.query(Items).filter(Items.item_id == item_id).first()
 
     if not item:
@@ -59,7 +69,9 @@ def put_item(update_item : ItemUpdate, item_id : int, db:Session = Depends(get_d
     return item
 
 @router.delete('/item/{item_id}')
-def delete_item(item_id : int, db: Session = Depends(get_db)):
+def delete_item(item_id : int,
+                admin = Depends(get_current_admin),
+                db: Session = Depends(get_db)):
     item = db.query(Items).filter(Items.item_id == item_id).first()
 
     if not item:
@@ -72,7 +84,9 @@ def delete_item(item_id : int, db: Session = Depends(get_db)):
 
 
 @router.post('/item/{item_id}/upload', response_model=ItemResponse)
-def upload_image(item_id : int, pic : UploadFile = File(...), db: Session = Depends(get_db)):
+def upload_image(item_id : int, pic : UploadFile = File(...),
+                 admin = Depends(get_current_admin),
+                 db: Session = Depends(get_db)):
     ''' api to upload the image'''
     item = db.query(Items).filter(Items.item_id == item_id).first()
     
@@ -92,7 +106,9 @@ def upload_image(item_id : int, pic : UploadFile = File(...), db: Session = Depe
     return item
     
 @router.put('/item/{item_id}/image', response_model=ItemResponse)
-def update_image(item_id : int, pic : UploadFile = File(...), db: Session = Depends(get_db)):
+def update_image(item_id : int, pic : UploadFile = File(...),
+                 admin = Depends(get_current_admin),
+                 db: Session = Depends(get_db)):
     item = db.query(Items).filter(Items.item_id == item_id).first()
 
     if not item:

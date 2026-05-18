@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect } from 'react'
+import api from '../../src/api/api'
 
 const AdminItemEdit = () => {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ const AdminItemEdit = () => {
         fetchdata();
     }, [])
     const updateItem = async (data) => {
-        const response = await axios.put(`${apiurl}/items/item/${id}`, data)
+        const response = await api.put(`/items/item/${id}`, data)
 
         return response.data
     }
@@ -47,7 +48,7 @@ const AdminItemEdit = () => {
         const formData = new FormData()
         formData.append("pic", file)
         console.log(formData.get('pic'))
-        await axios.put(`${apiurl}/items/item/${item_id}/image`, formData, {
+        await api.put(`/items/item/${item_id}/image`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         console.log('image uploaded')

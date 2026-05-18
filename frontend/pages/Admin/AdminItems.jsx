@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../../src/api/api';
 
 const AdminItems = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const AdminItems = () => {
       const apiurl = import.meta.env.VITE_BACKEND_URL;
       let response;
       try {
-        response = await axios.get(`${apiurl}/items/admin/${localStorage.getItem('admin_id')}`);
+        response = await api.get(`/items/admin`);
         console.log(response.data)
         setItems(response.data)
       }

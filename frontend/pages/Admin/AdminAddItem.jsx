@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import api from '../../src/api/api'
 
 const AdminAddItem = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const AdminAddItem = () => {
     const formData = new FormData()
 
     const createItem = async (data) => {
-        const response = await axios.post(`${apiurl}/items/create`, data)
+        const response = await api.post(`/items/create`, data)
 
         return response.data
     }
@@ -25,7 +26,7 @@ const AdminAddItem = () => {
         const formData = new FormData()
         formData.append("pic", file)
 
-        await axios.post(`${apiurl}/items/item/${item_id}/upload`, formData, {
+        await api.post(`/items/item/${item_id}/upload`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         console.log('image uploaded')
@@ -34,8 +35,7 @@ const AdminAddItem = () => {
     const onSubmit = async (data) => {
         console.log(data)
         const finaldata = {
-            ...data,
-            'admin_id': localStorage.getItem('admin_id')
+            ...data
         }
 
         try {
