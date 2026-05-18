@@ -14,13 +14,14 @@ import AdminAddItem from "../pages/Admin/AdminAddItem"
 import AdminItemEdit from "../pages/Admin/AdminItemEdit"
 import SingleOrder from "../pages/SingleOrder"
 import AdminSingleOrder from "../pages/Admin/AdminSingleOrder"
-
+import {ToastContainer} from 'react-toastify'
 
 
 function App() {
   return (
     <>
     <BrowserRouter>
+    <ToastContainer/>
       <Routes>
         <Route path="/home" element = {<Home/>}/>
         <Route path="/" element={<Home/>}/>

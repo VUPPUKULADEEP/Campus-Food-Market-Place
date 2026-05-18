@@ -12,6 +12,8 @@ import axios from 'axios';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../src/api/api'
+import {toast} from 'react-toastify'
+
 
 const SingleProduct = () => {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const SingleProduct = () => {
         setDesc(`${response.data.item_name} is freshly prepared by ${response.data.admin.first_name}. Currently ${response.data.quantity} items are available. Enjoy delicious taste with premium quality ingredients at just ₹${response.data.price}.`)
       }
       catch (error) {
-        alert('fail to fetch');
+        toast.error('fail to fetch');
         console.log(error)
       }
     }
@@ -58,12 +60,12 @@ const SingleProduct = () => {
         });
         console.log(res.data)
         navigate(-1);
-        
+        toast.success('item added to your cart')
       }
     }
     catch (error) {
       console.log(error)
-      alert('same restaurent items allowed to add')
+      toast.error('same restaurent items allowed to add')
     }
   }
 

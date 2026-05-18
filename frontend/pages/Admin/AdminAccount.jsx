@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../account.css'
 import axios from 'axios'
 import api from '../../src/api/api'
+import {toast} from 'react-toastify'
+
 
 const AdminAccount = () => {
     const [data, setData] = useState(null);
@@ -16,7 +18,7 @@ const AdminAccount = () => {
       setData(response.data)
     }
     catch (error) {
-      alert('fail to fetch');
+      toast.error('fail to fetch');
       console.log(error)
     }
     }

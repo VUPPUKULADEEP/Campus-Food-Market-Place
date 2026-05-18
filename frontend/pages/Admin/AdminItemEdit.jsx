@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect } from 'react'
 import api from '../../src/api/api'
+import {toast} from 'react-toastify'
+
 
 const AdminItemEdit = () => {
     const navigate = useNavigate();
@@ -32,7 +34,7 @@ const AdminItemEdit = () => {
                 
             }
             catch (error) {
-                alert('fail to fetch');
+                toast.error('fail to fetch');
                 console.log(error)
             }
         }
@@ -52,6 +54,7 @@ const AdminItemEdit = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         console.log('image uploaded')
+        toast.success('image uploaded')
     }
 
     const onSubmit = async (data) => {
@@ -65,11 +68,12 @@ const AdminItemEdit = () => {
                 await updateImage(updatedItem.item_id, data.image_url[0])
             }
             console.log('item + image uploaded')
+            toast.success('item with image uploaded')
             // console.log(finaldata)
             navigate('/admin')
         }
         catch (error) {
-            alert('item not added ')
+            toast.error('item not added ')
             console.log(error)
         }
     }

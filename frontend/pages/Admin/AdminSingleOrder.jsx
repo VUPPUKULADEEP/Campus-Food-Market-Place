@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { set } from 'react-hook-form';
 import api from '../../src/api/api';
+import {toast} from 'react-toastify'
 
 
 const AdminSingleOrder = () => {
@@ -21,7 +22,7 @@ const AdminSingleOrder = () => {
         setOrder(res.data)
       }
       catch (error) {
-        alert('fail to fetch');
+        toast.error('fail to fetch');
         console.log(error)
       }
     }
@@ -35,10 +36,10 @@ const AdminSingleOrder = () => {
       })
       console.log(res.data)
       setOrder({...order, status: status})
-      alert('status updated successfully')
+      toast.success('status updated successfully')
     }
     catch (error) {
-      alert('failed to update status');
+      toast.error('failed to update status');
       console.log(error)
     }
   }

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 
 const Signin = () => {
@@ -29,7 +30,7 @@ const Signin = () => {
       navigate('/');
     }
     catch (error) {
-      alert('login failed');
+      toast.error('login failed');
       console.log(error)
       // if (error.response.data.detail) {
       //   alert(error.response.data.detail)

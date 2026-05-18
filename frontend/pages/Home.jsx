@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './home.css'
 import Card from './Card'
 import axios from 'axios'
+import {toast} from 'react-toastify'
+
 
 const Home = () => {
   const [items, setItems] = useState(null)
@@ -18,7 +20,7 @@ const Home = () => {
       setItems(response.data)
     }
     catch (error) {
-      alert('fail to fetch');
+      toast.error('fail to fetch');
       console.log(error)
     }
     }

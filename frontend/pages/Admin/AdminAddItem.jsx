@@ -29,7 +29,7 @@ const AdminAddItem = () => {
         await api.post(`/items/item/${item_id}/upload`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
-        console.log('image uploaded')
+        toast.success('image uploaded')
     }
 
     const onSubmit = async (data) => {

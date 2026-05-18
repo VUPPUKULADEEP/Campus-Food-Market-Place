@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import api from '../src/api/api'
+import {toast} from 'react-toastify'
+
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const Cart = () => {
       }
       catch (error) {
         console.log(error)
-        alert('same restaurent items allowed to add')
+        toast.error('same restaurent items allowed to add')
       }
     }
     fetchcart();
@@ -44,7 +46,7 @@ const Cart = () => {
     try {
       const res = await api.delete(`/carts/cart/${cartId}/item/${item_id}`);
       console.log(res.data.message)
-      alert(res.data.message)
+      toast.info(res.data.message)
       setItems(items.filter((item) => item.item_id !== item_id))
     }
     catch (error) {
@@ -58,13 +60,13 @@ const Cart = () => {
         "cart_id": cartId,
       })
       console.log(response.data)
-      alert('order placed successfully')
+      toast.success('order placed successfully')
       navigate(`/order/${response.data.order_id}`)
       
     }
     catch(error){
       console.log(error)
-      alert('failed to place order')
+      toast.error('failed to place order')
     }
   }
 

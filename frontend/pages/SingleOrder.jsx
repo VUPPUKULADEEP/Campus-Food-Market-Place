@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+import api from '../src/api/api';
 
 const SingleOrder = () => {
     const { id } = useParams()
@@ -20,7 +22,7 @@ const SingleOrder = () => {
                 setOrder(res.data)
             }
             catch (error) {
-                alert('fail to fetch');
+                toast.error('fail to fetch');
                 console.log(error)
             }
         }
@@ -29,13 +31,13 @@ const SingleOrder = () => {
 
     const handleCancelOrder = async (order_id) => {
         try {
-            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/orders/order/${order_id}/delete`);
-            alert('Order cancelled successfully');
+            await api.delete(`/orders/order/${order_id}/delete`);
+            toast.info('Order cancelled successfully');
             // Optionally, you can redirect the user to another page after cancellation
             navigate('/profile'); // Uncomment this line if you want to redirect to the profile page
             
         } catch (error) {
-            alert('Failed to cancel order');
+            toast.error('Failed to cancel order');
             console.log(error);
         }
     };

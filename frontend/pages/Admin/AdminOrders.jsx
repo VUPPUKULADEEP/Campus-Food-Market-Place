@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../src/api/api'
+import {toast} from 'react-toastify'
+
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -17,7 +19,7 @@ const AdminOrders = () => {
         setOrders(res.data);
       }
       catch (error) {
-        alert('fail to fetch');
+        toast.error('fail to fetch');
         console.log(error)
       }
     }

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import api from '../../src/api/api';
+import {toast} from 'react-toastify'
+
 
 const AdminItems = () => {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const AdminItems = () => {
         setItems(response.data)
       }
       catch (error) {
-        alert('fail to fetch');
+        toast.error('fail to fetch');
         console.log(error)
       }
     }

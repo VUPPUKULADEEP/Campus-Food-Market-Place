@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Signup = () => {
         catch (error) {  
             console.log(error.response.data.detail)
             if (error.response.data.detail) {
-                alert(error.response.data.detail)
+                toast.error(error.response.data.detail)
             }
         }
 
