@@ -54,7 +54,7 @@ const AdminSignin = () => {
             {errors.password && <p className='error'>{errors.password.message}</p>}
           </div>
           <div className="w-100 text-end mb-2">
-            <Link to="/signup" className='text-decoration-none'>register here</Link>
+            <Link to="/admin/signup" className='text-decoration-none'>register here</Link>
           </div>
           <div className="d-grid gap-2 col-12 mx-auto">
             <button className="btn btn-primary" type="submit" >Login</button>
