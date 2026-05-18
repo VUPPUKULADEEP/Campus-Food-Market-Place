@@ -89,7 +89,9 @@ def cart_items(cart_id : int,
     return cart_items
 
 @router.patch('/cart/{cart_id}/item/{item_id}' , response_model=CartResponse)
-def update_quantity(cart_id : int, item_id : int , quantity : int, db: Session = Depends(get_db)): 
+def update_quantity(cart_id : int, item_id : int , quantity : int,
+                user = Depends(get_current_user),
+                db: Session = Depends(get_db)): 
     cart_item = db.query(CartItems).filter(CartItems.cart_id == cart_id, CartItems.item_id == item_id).first()
 
     if not cart_item:
