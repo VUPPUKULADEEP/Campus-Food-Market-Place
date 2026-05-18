@@ -6,9 +6,11 @@ from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOr
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 from app.dependency import get_current_user
 from app.admin_dependency import get_current_admin
-
+from zoneinfo import ZoneInfo
+from datetime import datetime
 
 router = APIRouter()
+IST = ZoneInfo("Asia/Kolkata")
 
 @router.get('/order/{order_id}',response_model= OrderList)
 def get_order_by_id(order_id : int , db : Session = Depends(get_db)):
@@ -49,7 +51,9 @@ def create_order(order : OrderCreate,
     new_order = Orders(
         user_id = user.user_id,
         total_amount = total,
-        admin_id = cart_admin_id
+        admin_id = cart_admin_id,
+        time_stamp = datetime.now(IST)
+        
     )
     db.add(new_order)
     db.commit()

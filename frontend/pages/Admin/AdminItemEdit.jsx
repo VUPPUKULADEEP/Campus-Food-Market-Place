@@ -142,11 +142,11 @@ const AdminItemEdit = () => {
 
                     <div className="d-flex justify-content-evenly gap-1 w-100">
 
-                        <button className='btn btn-danger w-50 rounded' type='reset' onClick={() => { navigate('/admin') }}>go back</button>
+                        <button className='btn btn-danger rounded w-50' type='reset' onClick={() => { navigate('/admin') }}>go back</button>
 
 
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-primary rounded w-50"
                             type="submit"
                             disabled={!isDirty}
                         >

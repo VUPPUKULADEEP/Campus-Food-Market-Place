@@ -31,6 +31,7 @@ def create_admin( user:AdminCreate,db: Session = Depends(get_db)):
         db.commit()
         db.refresh(admin)
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=400,detail="admin already exists")
     else:
         return admin
