@@ -3,6 +3,7 @@ import AdminHeaderBar from '../../components/AdminHeader'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import api from '../../src/api/api'
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -11,7 +12,7 @@ const AdminOrders = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(`${apiurl}/orders/admin/orders/${localStorage.getItem('admin_id')}`);
+        const res = await api.get(`${apiurl}/orders/admin/orders/`);
         console.log(res.data);
         setOrders(res.data);
       }

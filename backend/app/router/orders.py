@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from app.schemas import OrderCreate, OrderSummary, OrderItem, OrderList, AdminOrderList, AdminOrderSimple, UpdateStatus
 from app.models import Users, OrderDetails, Orders, Cart, CartItems
 from app.dependency import get_current_user
+from app.admin_dependency import get_current_admin
+
 
 router = APIRouter()
 
@@ -140,18 +142,22 @@ def delete_order(order_id : int, db : Session = Depends(get_db)):
     
     return {'message' : 'order deleted '}
 
-@router.get('/admin/orders/{admin_id}' , response_model = list[AdminOrderSimple])
-def orders_by_admin(admin_id : int, db : Session = Depends(get_db)):
-    orders = db.query(Orders).filter(Orders.admin_id == admin_id).all()
+@router.get('/admin/orders/' , response_model = list[AdminOrderSimple])
+def orders_by_admin(
+    admin = Depends(get_current_admin),
+    db : Session = Depends(get_db)):
+    orders = db.query(Orders).filter(Orders.admin_id == admin.admin_id).all()
 
 
     return orders
 
 
 
-@router.get('/admin/order/{admin_id}/{order_id}' , response_model = AdminOrderList)
-def order_by_admin(admin_id : int, order_id : int, db : Session = Depends(get_db)):
-    order = db.query(Orders).filter(Orders.admin_id == admin_id, Orders.order_id == order_id).first()
+@router.get('/admin/order/details/{order_id}' , response_model = AdminOrderList)
+def order_by_admin( order_id : int,
+                   admin = Depends(get_current_admin),
+                   db : Session = Depends(get_db)):
+    order = db.query(Orders).filter(Orders.admin_id == admin.admin_id, Orders.order_id == order_id).first()
     order_details = db.query(OrderDetails).filter(OrderDetails.order_id == order_id).all()
 
     if not order_details:
@@ -183,7 +189,9 @@ def order_by_admin(admin_id : int, order_id : int, db : Session = Depends(get_db
 
 
 @router.patch('/order/{order_id}/status')
-def update_order_status(order_id : int, status : UpdateStatus, db : Session = Depends(get_db)):
+def update_order_status(order_id : int, status : UpdateStatus,
+                        admin = Depends(get_current_admin),
+                        db : Session = Depends(get_db)):
     order = db.query(Orders).filter(Orders.order_id == order_id).first()
 
     if not order:

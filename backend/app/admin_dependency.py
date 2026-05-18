@@ -3,14 +3,14 @@ from fastapi.security import OAuth2PasswordBearer
 from app.router.auth import decode_token
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Users
+from app.models import Admins
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl= '/users/login',
-    scheme_name='UserAuth'
+    tokenUrl= '/admins/login',
+    scheme_name='AdminAuth'
 )
 
-def get_current_user(
+def get_current_admin(
     token : str = Depends(oauth2_scheme),
     db : Session = Depends(get_db)
 ):
@@ -23,11 +23,11 @@ def get_current_user(
     
     id = int(payload.get("sub"))
     
-    user = db.query(Users).filter(Users.user_id == id).first()
+    admin = db.query(Admins).filter(Admins.admin_id == id).first()
     
-    if not user:
+    if not admin:
         raise HTTPException(status_code=400, detail='user not found')
     
-    return user
+    return admin
     
     

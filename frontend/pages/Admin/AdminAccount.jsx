@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../account.css'
 import axios from 'axios'
-
+import api from '../../src/api/api'
 
 const AdminAccount = () => {
     const [data, setData] = useState(null);
@@ -11,7 +11,7 @@ const AdminAccount = () => {
     const apiurl = import.meta.env.VITE_BACKEND_URL;
     let response;
     try {
-      response = await axios.get(`${apiurl}/admins/by/${localStorage.getItem('admin_id')}`);
+      response = await api.get(`/admins/myprofile`);
       console.log(response.data)
       setData(response.data)
     }

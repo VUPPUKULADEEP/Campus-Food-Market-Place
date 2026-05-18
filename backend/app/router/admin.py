@@ -5,8 +5,10 @@ from sqlalchemy.orm import Session
 from app.models import Admins
 from app.schemas import AdminLogin, AdminCreate,AdminResponse,Login
 from app.router.auth import change_to_hash, verify_password
-
-
+from fastapi.security import OAuth2PasswordRequestForm
+from app.router.auth import create_token
+from datetime import timedelta
+from app.admin_dependency import get_current_admin
 router = APIRouter()
 
 
@@ -41,21 +43,42 @@ def get_user_by_id(admin_id : int, db:Session = Depends(get_db)):
         return HTTPException(status_code=404, detail='user not found')
     return admin
 
-@router.post('/login', response_model=AdminResponse)
-def login(admin: AdminLogin, db:Session = Depends(get_db)):
+@router.post('/login')
+def login(admin: OAuth2PasswordRequestForm = Depends()
+        , db:Session = Depends(get_db)):
     try:
-        u = db.query(Admins).filter(Admins.email == admin.email).first()
+        u = db.query(Admins).filter(Admins.email == admin.username).first()
         if not u:
             raise HTTPException(status_code=401, detail='invalid admin')
         if not verify_password(admin.password, u.password):
             raise HTTPException(status_code=400, detail='password mismatch')
-        
-        return u
+        token = create_token({
+            'sub' : str(u.admin_id),
+            'username' : u.email,
+            'role' : 'admin'
+        }, token_type= 'access')
+        refresh_token = create_token({
+            'sub' : str(u.admin_id),
+            'username' : u.email,
+            'role' : 'admin'
+        }, token_type='refresh',
+            expiry=timedelta(days = 1))
+        return {
+            'access_token' : token,
+            'token_type' : 'bearer',
+            'refresh_token' : refresh_token
+        }
     except HTTPException as e:
         raise HTTPException(status_code=401, detail='invalid admin')
     except Exception as e:
         return{'message' : 'unknown exception'} 
 
+@router.get('/myprofile', response_model=AdminResponse)
+def myprofile(
+    current_admin = Depends(get_current_admin),
+    db : Session = Depends(get_db)
+):
+    return current_admin
 
 @router.delete('/delete/admin')
 def delete_user(admin_id : int, db:Session = Depends(get_db)):

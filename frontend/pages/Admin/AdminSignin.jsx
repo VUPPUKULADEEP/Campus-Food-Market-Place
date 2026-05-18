@@ -10,12 +10,21 @@ const AdminSignin = () => {
 
   const { register, formState: { errors }, handleSubmit } = useForm()
   const onSubmit = async (adminData) => {
+    const formdata = new URLSearchParams();
+    formdata.append("username", adminData.email)
+    formdata.append("password", adminData.password);
     const apiurl = import.meta.env.VITE_BACKEND_URL
     let response;
     try {
-      response = await axios.post(`${apiurl}/admins/login`, adminData);
+      response = await axios.post(`${apiurl}/admins/login`, formdata, {
+        headers:{
+          "Content-Type" : "application/x-www-form-urlencoded"
+        }
+      });
       console.log(response)
-      localStorage.setItem('admin_id', response.data['admin_id'])
+      localStorage.setItem('access_token', response.data['access_token'])
+      localStorage.setItem('refresh_token', response.data['refresh_token'])
+      localStorage.setItem('token_type', response.data['token_type'] )
       navigate('/admin');
     }
     catch (error) {

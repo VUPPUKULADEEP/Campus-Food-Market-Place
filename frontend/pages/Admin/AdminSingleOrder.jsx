@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { set } from 'react-hook-form';
+import api from '../../src/api/api';
 
 
 const AdminSingleOrder = () => {
@@ -15,7 +16,7 @@ const AdminSingleOrder = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/orders/admin/order/${localStorage.getItem('admin_id')}/${id}`);
+        const res = await api.get(`/orders/admin/order/details/${id}`);
         console.log(res.data)
         setOrder(res.data)
       }
@@ -29,7 +30,7 @@ const AdminSingleOrder = () => {
   const  updateStatus = async (status) => {
     try {
       console.log(status)
-      const res = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/orders/order/${id}/status`, {
+      const res = await api.patch(`/orders/order/${id}/status`, {
         "status": status
       })
       console.log(res.data)
