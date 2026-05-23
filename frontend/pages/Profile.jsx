@@ -8,7 +8,6 @@ import Cart from './Cart'
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 
-
 const Profile = () => {
   const location = useLocation();
   const [page, setPage] = useState(
