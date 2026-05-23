@@ -1,5 +1,4 @@
-# E-COMMERCE-FULL-FUNCTIONAL
-TO MAKE A FULLY FUNCTIONAL E-COMMERCE
+# Campus-Food-Ordering-System
 
 
 **for frontend**\
