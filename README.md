@@ -7,7 +7,7 @@ futher i will integrate it.
 
 ### Table of Contents
 - [About](#about)
-- [Tech stack](#tech stack)
+- [Tech stack](#tech-stack)
 - [Getting Started](#gettingstarted)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -33,7 +33,7 @@ Admins can add items, edit item details also can delete it.
 
 if order cancels by user the quantity will be restore as previous quantity.
 
-## Tech stack
+## Tech Stack
 The Campus-Food-Ordering-System was developing on softwares:
 - Fastapi
 - React (vite)
