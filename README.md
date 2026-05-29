@@ -86,7 +86,8 @@ npm run dev
 # to install libraries
 pip install -r requirements.txt
 ```
-```bash Start Backend
+```bash 
+# start backend
 uvicorn app.main:app --reload
 ```
 
