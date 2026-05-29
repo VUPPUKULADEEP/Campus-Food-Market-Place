@@ -6,12 +6,12 @@ futher i will integrate it.
 
 
 ### Table of Contents
--[About](#about)
--[Tech stack](#tech stack)
--[Getting Started](#gettingstarted)
--[Installing](#installing)
--[Usage](#usage)
--[Contributing](#contributing)
+- [About](#about)
+- [Tech stack](#tech stack)
+- [Getting Started](#gettingstarted)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
 
 ## About
 
@@ -20,12 +20,15 @@ The website consists of two types of users:
 - Admins
 
 Users are normal users.
+
 Admins are restaurant/cafetaria owners.
 
 Users can see the items and add to cart.
+
 Users can order whole cart at a time.
 
 Admins recieve the order details admins know the user details which are keeping in order details.
+
 Admins can add items, edit item details also can delete it.
 
 if order cancels by user the quantity will be restore as previous quantity.
