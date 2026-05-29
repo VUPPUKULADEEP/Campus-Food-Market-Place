@@ -7,8 +7,8 @@ futher i will integrate it.
 
 ### Table of Contents
 - [About](#about)
-- [Tech stack](#tech-stack)
-- [Getting Started](#gettingstarted)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -49,6 +49,8 @@ mysql is for store the data
 Bootstrap framework to style the elements in frontend.
 
 ## Getting Started
+
+> **Note:** This project is developed on linux-ubuntu. I don't have clear idea on commands. The commands may be differ the website can run on windows (or) mac also.
 
 For running this website in your local machine.
 you must have these softwares in your system.
@@ -93,4 +95,8 @@ pip install -r requirements.txt
 # start backend
 uvicorn app.main:app --reload
 ```
+
+## usage
+
+## contributing
 
