@@ -64,10 +64,12 @@ you must have these softwares in your system.
 ```bash
 cd frontend
 ```
-```bash To Install Npm Packages
+```bash 
+# to install npm packages
 npm install
 ```
-``` for development server
+```bash 
+#for development server
 npm run dev
 ```
 
@@ -80,10 +82,11 @@ npm run dev
 
 
 **for starting backend**
-```bash to install libraries
+```bash
+# to install libraries
 pip install -r requirements.txt
 ```
-```bash to start backend
+```bash Start Backend
 uvicorn app.main:app --reload
 ```
 
