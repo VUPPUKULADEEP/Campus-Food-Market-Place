@@ -61,10 +61,10 @@ you must have these softwares in your system.
 ##### if you want to make any changes make sure fork it
 
 **for frontend**
-```
+```bash
 cd frontend
 ```
-``` to install npm packages
+```bash To Install Npm Packages
 npm install
 ```
 ``` for development server
@@ -74,13 +74,13 @@ npm run dev
 
 **for backend**
 
-- venv is a virtual environment in the backend folder\
-- use requirements.txt to mention your packages \
+- venv is a virtual environment in the backend folder
+- use requirements.txt to mention your packages
 - use pip freeze > requirements.txt to update when ever needed
 
 
 **for starting backend**
-``` to install libraries
+```bash to install libraries
 pip install -r requirements.txt
 ```
 ```bash to start backend
