@@ -83,18 +83,7 @@ npm run dev
 ``` to install libraries
 pip install -r requirements.txt
 ```
-``` to start backend
+```bash to start backend
 uvicorn app.main:app --reload
 ```
 
-
-````markdown
-```css Custom CSS
-.markdown-body {
-  --md-code-background: #e3dcef;
-  --md-code-text: #4a2b7b;
-  --md-code-tabs: #c6b8dd;
-  --md-code-radius: 4px;
-}
-```
-````
