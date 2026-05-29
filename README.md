@@ -73,10 +73,7 @@ cd frontend
 # to install npm packages
 npm install
 ```
-```bash 
-#for development server
-npm run dev
-```
+
 
 
 **for backend**
@@ -85,18 +82,37 @@ npm run dev
 - use requirements.txt to mention your packages
 - use pip freeze > requirements.txt to update when ever needed
 
-
-**for starting backend**
+```bash
+# to activate venv
+source venv/bin/activate
+```
 ```bash
 # to install libraries
 pip install -r requirements.txt
 ```
+
+
+## usage
+
+### starting backend
+
 ```bash 
 # start backend
 uvicorn app.main:app --reload
 ```
+Backend will run on:
+http://127.0.0.1:8000/ <br>
+**API Docs :**(http://127.0.0.1:8000/docs)
 
-## usage
+### starting frontend
+```bash 
+#for development server
+npm run dev
+```
+
+Frontend will run on:
+http://localhost:5173
+
 
 ## contributing
 
