@@ -116,3 +116,5 @@ http://localhost:5173
 
 ## contributing
 
+for contributing ideas,code please refer the [contributing.md]('/contributing.md)
+
