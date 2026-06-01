@@ -1,4 +1,4 @@
-# Campus-Food-Ordering-System
+# Campus-Food-Market-place
 
 This is a web-based project for the colleges which have cafetaria's. My project provides a interface to order the Food Items to reduce the queue lines and peak orders at only one time.
 For now this project doesnt have a payment gateway.
@@ -34,7 +34,7 @@ Admins can add items, edit item details also can delete it.
 if order cancels by user the quantity will be restore as previous quantity.
 
 ## Tech Stack
-The Campus-Food-Ordering-System was developing on softwares:
+The Campus-Food-Market-place was developing on softwares:
 - Fastapi
 - React (vite)
 - Mysql
